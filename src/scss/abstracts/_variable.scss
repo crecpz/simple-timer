@@ -1,0 +1,74 @@
+$primary-font: 'VT323', monospace;
+
+// 網頁背景色
+// $primary-background-color:#94bbb0;
+// $primary-background-color:#7a9db0;
+$primary-background-color:#ecd9cd;
+
+
+// time font-size
+$time-font-size: 3.75rem;
+
+// time's up font-size
+$times-up-font-size: 2.625rem;
+
+
+// 白鍵正面
+$white-base:#ffffff;
+
+// 白鍵轉角淺
+$white-corner-light:#cccccc;
+
+// 白鍵轉角深
+$white-corner-dark: #4d4d4d;
+
+// 白鍵按下正面 & 按鈕面板背景色  
+$white-dark:#f2f2f2;
+
+// 白鍵側面
+$white-darker:#dadada;
+// $white-darker:#a6a6a6;
+
+// 白鍵按下側面
+$white-darkest:#989898;
+// $white-darkest:#666666;
+
+// 橘鍵正面
+$orange-base: #ff5943;
+
+// 橘鍵轉角淺
+$orange-corner-ligtht: #cc4736;
+
+// 橘鍵轉角深
+$orange-corner-dark: #a63a2c;
+
+// 橘鍵按下正面
+$orange-dark:#f25540;
+
+// 橘鍵側面
+$orange-darker: #be4332;
+// $orange-darker: hsl(7, 58%, 41%);
+
+// 橘鍵按下側面
+$orange-darkest: #66241b;
+
+// 螢幕基本
+$green-base:#9bb090;
+
+// 螢幕深色
+$green-dark: #6e7d66;
+
+// 螢幕外框
+$gray-deep: #424242;
+
+// 燈亮紅
+$red-base:#ff0000;
+
+// 燈暗紅
+$red-dark: #730000;
+
+// 燈橘
+$orange-normal: rgb(250, 83, 0);
+
+// radius
+$radius-sm: .1875rem;

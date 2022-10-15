@@ -1,0 +1,95 @@
+@use "../abstracts" as *;
+// @use "sass:list";
+
+%screen-style {
+  font-family: $primary-font;
+  color: map-get($components-color, "screen-dark");
+}
+
+@media (hover: hover) {
+  .setting-dialog__btn:hover {
+    background-color: map-get($map: $dialog-color, $key: "btn-hover-bg");
+    color: map-get($dialog-color, "btn-hover-text");
+  }
+}
+
+.setting-dialog {
+  font-family: $primary-font;
+
+  padding: 2rem 3rem;
+  width: 100%;
+  max-width: 22.1875rem;
+  margin: 0 auto;
+
+  &[open] {
+    margin: auto;
+
+    &::backdrop {
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+  }
+
+  &[closing]::backdrop {
+    inset: 0;
+  }
+
+  background-color: map-get($dialog-color, "background");
+
+  &__form {
+    width: 100%;
+    @include flex();
+  }
+
+  &__label {
+    @extend %screen-style;
+    @include flex($dir: column, $ai: center);
+    max-width: 50%;
+
+    > span {
+      font-size: 1.5rem;
+    }
+  }
+
+  &__input {
+    @extend %screen-style;
+    max-width: 100%;
+    text-align: center;
+    font-size: $time-font-size;
+    border: none;
+    background-color: transparent;
+  }
+
+  &__btn-wrapper {
+    @include flex($jc: center);
+  }
+
+  &__btn {
+    @extend %screen-style;
+    margin-top: 1rem;
+    padding: 0 1.25rem;
+    font-size: 28px;
+    border: 2px solid map-get($map: $components-color, $key: "screen-dark");
+    // box-shadow: 0 0 0 2px map-get($map: $components-color, $key: "screen-dark");
+    cursor: pointer;
+    background-color: transparent;
+  }
+
+  &__ok-btn {
+    margin-left: 1rem;
+  }
+
+  &__cancel-btn {
+  }
+}
+
+// $list1: 1px 2px 3px;
+// $list2: 16px;
+
+// @debug join($list1, $list2); 
+// @debug append($list1, $list2); 
+
+// $list3: 1px 2px;
+// $list4: 3px 16px;
+
+// @debug join($list3, $list4); 
+// @debug append($list3, $list4); 

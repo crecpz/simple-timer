@@ -1,0 +1,60 @@
+@use "variable" as var;
+
+$components-color: (
+  "timer-middle": var.$white-dark,
+
+  "btn-white-front": #ffffff,
+  "btn-white-corner-light": #cccccc,
+  "btn-white-corner-dark": #4d4d4d,
+  "btn-white-front-pressed": #f2f2f2,
+  "btn-white-side": var.$white-darker,
+  "btn-white-side-pressed": var.$white-darkest,
+
+  "btn-orange-front": var.$orange-base,
+  "btn-orange-corner-light": var.$orange-corner-ligtht,
+  "btn-orange-corner-dark": var.$orange-corner-dark,
+  "btn-orange-front-pressed": var.$orange-dark,
+  "btn-orange-side": var.$orange-darker,
+  "btn-orange-side-pressed": var.$orange-darkest,
+
+  "screen-base": var.$green-base,
+  "screen-dark": var.$green-dark,
+  "screen-outer": var.$gray-deep,
+
+  "vents": var.$gray-deep,
+  
+  "btn-wrapper": var.$gray-deep,
+  "timer-bottom": #2d2d2d,
+  
+  "light-stop": var.$red-dark,
+  "light-start": var.$red-base,
+  "light-pause": var.$orange-normal,
+
+);
+
+$dialog-color: (
+  "background": var.$green-base,
+  "text-color": var.$green-dark,
+  "btn-border": var.$green-dark,
+  "btn-hover-bg": var.$green-dark,
+  "btn-hover-text": var.$green-base,
+);
+
+$font-size:(
+  // screen
+  time-default: var.$time-font-size,
+  times-up: var.$times-up-font-size,
+);
+
+// $list1: 100ms 200ms 300ms;
+// $list2: ease ease-in ease-in-out;
+// $list3: width height margin;
+
+// @debug zip($list1, $list2, $list3); //Debug: 100ms ease width, 200ms ease-in height, 300ms ease-in-out margin
+
+
+// $list1: 100ms 200ms 300ms;
+// $list2: ease ease-in;
+// $list3: width height margin;
+
+// @debug zip($list1, $list2, $list3);
