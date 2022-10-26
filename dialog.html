@@ -1,0 +1,20 @@
+<dialog id="setting-dialog" class="setting-dialog">
+  <!-- form -->
+  <form class="setting-dialog__form">
+    <label for="setting-minute" class="setting-dialog__label"><span>Minute</span>
+      <input type="text" id="setting-minute" class="setting-dialog__input" min="0" max="99" maxlength="2"
+        placeholder="MM">
+    </label>
+
+    <label for="setting-second" class="setting-dialog__label"><span>Second</span>
+      <input type="text" id="setting-second" class="setting-dialog__input" min="0" max="59" maxlength="2"
+        placeholder="SS">
+    </label>
+  </form>
+
+  <!-- setting-dialog btn wrapper -->
+  <div class="setting-dialog__btn-wrapper">
+    <button id="cancel-btn" class="setting-dialog__btn setting-dialog__cancel-btn">Cancel</button>
+    <button id="ok-btn" class="setting-dialog__btn setting-dialog__ok-btn">OK</button>
+  </div>
+</dialog>

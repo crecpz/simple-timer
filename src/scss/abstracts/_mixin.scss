@@ -4,3 +4,10 @@
   justify-content: $jc;
   align-items: $ai;
 }
+
+// 檢查裝置是否支援hover，若有支援才執行此
+@mixin hover-query() {
+  @media (hover: hover) {
+    @content;
+  }
+}

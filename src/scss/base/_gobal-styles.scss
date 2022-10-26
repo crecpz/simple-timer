@@ -11,8 +11,11 @@ body {
     @extend %flex-center;
     height: 100vh;
     font-family: "Noto Sans TC", sans-serif;
-    /* font-family: 'VT323', monospace; */
     background-color: $primary-background-color;
+}
+
+body.no-transition * {
+    transition-duration: 0s !important;
 }
 
 .container {

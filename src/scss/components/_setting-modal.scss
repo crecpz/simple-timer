@@ -1,0 +1,117 @@
+@use "../abstracts" as *;
+
+.modal-overlay {
+  opacity: 0;
+  visibility: hidden;
+
+  position: fixed;
+  z-index: 10;
+  inset: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0,0,0,.5);
+
+  transition-property:  opacity, visibility;
+  transition-duration: 500ms;
+
+  &--active {
+    opacity: 1;
+    visibility: visible;
+
+    .setting-modal{
+      visibility: visible;
+      opacity: 1;
+      transform: translate(-50%, -50%);
+    }
+  }
+}
+
+
+
+%screen-style {
+  font-family: $primary-font;
+  color: map-get($components-color, "screen-dark");
+}
+
+
+
+.setting-modal {
+  visibility: hidden;
+  opacity: 0;
+  
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, 0%);
+
+  font-family: $primary-font;
+  padding: 2rem 3rem;
+  width: 100%;
+  max-width: 22.1875rem;
+  margin: 0 auto;
+  background-color: map-get($modal-color, "background");
+  transition-property: visibility, opacity;
+  transition: 500ms ease-in-out;
+
+
+  &__form {
+    width: 100%;
+    @include flex();
+  }
+
+  &__label {
+    @extend %screen-style;
+    @include flex($dir: column, $ai: center);
+    max-width: 50%;
+
+    > span {
+      font-size: 1.5rem;
+    }
+  }
+
+  &__input {
+    @extend %screen-style;
+    max-width: 100%;
+    text-align: center;
+    font-size: $time-font-size;
+    border: none;
+    background-color: transparent;
+    margin-top: 16px;
+  }
+
+  &__btn-wrapper {
+    @include flex($jc: center);
+    margin-top: 1rem;
+  }
+
+  &__btn {
+    @include flex($ai:center, $jc:center);
+    @extend %screen-style;
+    font-size: 1.75rem;
+    border:0;
+    cursor: pointer;
+    background-color: transparent;
+    transform-origin: center;
+    transition: transform ease-in-out 100ms;
+
+    @include hover-query(){
+      &:hover {
+        transform: scale(1.5);
+        // background-color: map-get($modal-color, "btn-hover-bg");
+        // color: map-get($modal-color, "btn-hover-text");
+      }
+    }
+
+    > i {
+      pointer-events: none;
+    }
+  }
+
+  &__ok-btn {
+    margin-left: 3rem;
+  }
+
+  &__cancel-btn {
+
+  }
+}

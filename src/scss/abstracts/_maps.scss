@@ -29,10 +29,9 @@ $components-color: (
   "light-stop": var.$red-dark,
   "light-start": var.$red-base,
   "light-pause": var.$orange-normal,
-
 );
 
-$dialog-color: (
+$modal-color: (
   "background": var.$green-base,
   "text-color": var.$green-dark,
   "btn-border": var.$green-dark,

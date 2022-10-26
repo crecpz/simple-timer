@@ -24,7 +24,7 @@
 </head>
 <!-- https://freesound.org/data/previews/614/614379_10912485-lq.mp3 -->
 
-<body>
+<body class="no-transition">
     <div class="container">
         <div class="timer">
             <!-- 計時器上半部 -->
@@ -69,7 +69,7 @@
                     <button id="btn-stop" class="btn btn--stop btn--white" disabled></button>
                     <button id="btn-start" class="btn btn--start btn--orange"></button>
                     <button id="btn-pause" class="btn btn--pause btn--white" disabled></button>
-                    <button id="btn-set-time" class="btn btn--white"></button>
+                    <button id="btn-setting" class="btn btn--setting btn--white"></button>
                 </div>
             </div>
 
@@ -85,28 +85,43 @@
 
 
 
-    <!----- dialog ----->
-    <dialog id="setting-dialog" class="setting-dialog">
 
-        <!-- form -->
-        <form class="setting-dialog__form">
-            <label for="setting-minute" class="setting-dialog__label"><span>Minute</span>
-                <input type="text" id="setting-minute" class="setting-dialog__input" min="0" max="99" maxlength="2"
-                    placeholder="MM">
-            </label>
 
-            <label for="setting-second" class="setting-dialog__label"><span>Second</span>
-                <input type="text" id="setting-second" class="setting-dialog__input" min="0" max="59" maxlength="2"
-                    placeholder="SS">
-            </label>
-        </form>
 
-        <!-- setting-dialog btn wrapper -->
-        <div class="setting-dialog__btn-wrapper">
-            <button id="cancel-btn" class="setting-dialog__btn setting-dialog__cancel-btn">Cancel</button>
-            <button id="ok-btn" class="setting-dialog__btn setting-dialog__ok-btn">OK</button>
+
+
+    <div class="modal-overlay">
+        <!-- setting-modal -->
+        <div id="setting-modal" class="setting-modal">
+            <!-- setting-modal > form -->
+            <form class="setting-modal__form">
+                <label for="setting-minute" class="setting-modal__label"><span>Minute</span>
+                    <input type="text" id="setting-minute" class="setting-modal__input" min="0" max="99" maxlength="2"
+                        placeholder="MM">
+                </label>
+
+                <label for="setting-second" class="setting-modal__label"><span>Second</span>
+                    <input type="text" id="setting-second" class="setting-modal__input" min="0" max="59" maxlength="2"
+                        placeholder="SS">
+                </label>
+            </form>
+            <!-- setting-modal > btn wrapper -->
+            <div class="setting-modal__btn-wrapper">
+                <button id="cancel-btn" class="setting-modal__btn setting-modal__cancel-btn"><i class="fa-solid fa-x"></i></button>
+                <button id="ok-btn" class="setting-modal__btn setting-modal__ok-btn"><i class="fa-solid fa-o"></i></button>
+            </div>
         </div>
-    </dialog>
+    </div>
+
+
+
+
+
+
+
+
+
+
 
     <!-- JavaScript -->
     <script src="./main.js"></script>

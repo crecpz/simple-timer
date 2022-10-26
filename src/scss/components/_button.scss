@@ -14,6 +14,7 @@
 .btn {
   $btn-total-height: 7.263rem;
   $btn-side-height: 1.5625rem;
+  $clicked-height: 0.625rem;
   $translate-amount: 0.625rem;
 
   @include flex($ai: flex-end);
@@ -62,22 +63,36 @@
 
   // ----------------------- 按鈕狀態 -----------------------
 
-  &--mousedown {
-    height: $btn-total-height - .3125rem;
+  // &--mousedown {
+  //   height: $btn-total-height;
+  //   // transform: translateY(5px);
 
-    transform: translateY(5px);
+  //   &::before {
+  //     height: 0;
+  //   }
+  // }
+
+  // &--mouseup {
+  //   height: $btn-total-height - .1875rem;
+  //   transform: translateY(3px);
+
+  //   &::before {
+  //     height: 5px;
+  //   }
+  // }
+
+  &:disabled {
+    // box-shadow: 0 0 0 0 map-get($components-color, btn-white-front-pressed);
+    // background-color: map-get($components-color, btn-white-front-pressed);
 
     &::before {
-      height: 0;
+      height: $clicked-height;
     }
   }
-
-  &--mouseup {
-    height: $btn-total-height - .1875rem;
-    transform: translateY(3px);
-
+  
+  &--setting.btn--clicked {
     &::before {
-      height: 5px;
+      height: 0;
     }
   }
 
