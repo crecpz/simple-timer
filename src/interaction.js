@@ -1,4 +1,4 @@
-import { getSettingTime, setTime, timer, timerStart } from "./timer";
+import { settingTime, timer, timerStart, showTime, totalSecond } from "./timer";
 
 // * buttons
 const btns = document.querySelectorAll(".btn");
@@ -24,20 +24,20 @@ btns.forEach((btn) => {
     }
 
     if (e.target.id === "ok-btn") {
-      const settingTime = getSettingTime();
-      console.log(settingTime)
-      setTime(settingTime);
+      settingTime();
+      showTime();
+      localStorage.setItem('totalSecond', JSON.stringify(totalSecond));
     }
   })
 );
 
 function handleClick(e) {
+
   if (e.target.id === "btn-stop") {
   }
 
   if (e.target.id === "btn-start") {
-    timerStart()
-    [btnStop, btnPause].forEach((btn) => btn.removeAttribute("disabled", ""));
+    // timerStart();
   }
 
   if (e.target.id === "btn-pause") {
@@ -54,10 +54,14 @@ function handleMousedown(e) {
 
   if (e.target.id === "btn-stop") {
     timerStop();
+    showTime();
   }
 
   if (e.target.id === "btn-start") {
     timerStart();
+    [btnStop, btnPause].forEach((btn) => {
+      btn.removeAttribute("disabled", "")
+    });
   }
 
   if (e.target.id === "btn-pause") {

@@ -1,59 +1,24 @@
 const timeWrapper = document.querySelector("#time-wrapper");
-
-// ! 找出問題改善
-
-// const timeObj = JSON.parse(localStorage.getItem("timeObj")) || {
-//   minute: 0,
-//   second: 0,
-// };
 const storageTotalSecond = JSON.parse(localStorage.getItem("totalSecond")) || 0;
+export let totalSecond = storageTotalSecond;
 
-// 設定的時間(分, 秒)
-// let { minute: settimgMinute, second: settingSecond } = timeObj;
+// 畫面載入時，先調用 showTime() 來顯示目前設定的時間 
+showTime();
 
-let totalSecond = storageTotalSecond;
-
-// const timer = setInterval(countdown, 1000);
-
-
-// function countdown() {
-//   if (totalSecond < 0) {
-//     clearInterval(timer);
-//   }
-//   totalSecond--;
-//   showTime(totalSecond);
-// }
-
-// function showTime(totalSecond) {
-//   let minute = Math.floor(totalSecond / 60);
-//   let second = totalSecond % 60;
-//   // console.log(minute,second)
-//   minute = minute < 10 ? "0" + minute : minute;
-//   second = second < 10 ? "0" + second : second;
-//   timeWrapper.innerHTML = `${minute} : ${second}`;
-// }
-
-// function secondToTime(sec) {}
-
+// * 計時開始
 export function timerStart() {
-  const timer = setInterval(countdown, 1000);
-
-  function countdown() {
-    let minute = Math.floor(totalSecond / 60);
-    let second = totalSecond % 60;
+  const countdown = () => {
     totalSecond--;
-
-    if (totalSecond < 0) {
+    if (totalSecond <= 0) {
       clearInterval(timer);
     }
-
-    minute = minute < 10 ? "0" + minute : minute;
-    second = second < 10 ? "0" + second : second;
-    timeWrapper.innerHTML = `${minute} : ${second}`;
-  }
+    showTime();
+  };
+  const timer = setInterval(countdown, 1000);
 }
 
-function showTime(totalSecond){
+// * 將 totalSecond 的秒數轉換成分與秒，顯示到畫面中
+export function showTime() {
   let minute = Math.floor(totalSecond / 60);
   let second = totalSecond % 60;
 
@@ -61,6 +26,16 @@ function showTime(totalSecond){
   second = second < 10 ? "0" + second : second;
   timeWrapper.innerHTML = `${minute} : ${second}`;
 }
+
+// * 取得使用者設定的時間，並更新 totalSecond 變量
+export function settingTime() {
+  // 取得使用者在 #setting-modal 中設定的 DOM，並計算出總秒數
+  const settingMin = document.querySelector("#setting-minute");
+  const settingSec = document.querySelector("#setting-second");
+  totalSecond = Number(settingMin.value) * 60 + Number(settingSec.value);
+}
+
+
 
 // ! 勿動
 // const timer = setInterval(countdown, 1000);
@@ -77,19 +52,3 @@ function showTime(totalSecond){
 //   second = second < 10 ? "0" + second : second;
 //   timeWrapper.innerHTML = `${minute} : ${second}`;
 // }
-
-export function getSettingTime() {
-  const settingMin = document.querySelector("#setting-minute");
-  const settingSec = document.querySelector("#setting-second");
-  return Number(settingMin.value) * 60 + Number(settingSec.value);
-}
-
-export function setTime(totalSecond) {
-  const timeWrapper = document.querySelector("#time-wrapper");
-  showTime(totalSecond);
-
-  // timeWrapper.innerHTML = `${minute} : ${second}`;
-  // localStorage.setItem("totalSecond", JSON.stringify(storageTotalSecond));
-}
-
-// window.addEventListener("DOMContentLoaded", showTime);
