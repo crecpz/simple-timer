@@ -1,33 +1,51 @@
 const timeWrapper = document.querySelector("#time-wrapper");
-const storageTotalSecond = JSON.parse(localStorage.getItem("totalSecond")) || 0;
+export const storageTotalSecond = JSON.parse(localStorage.getItem("totalSecond")) || 0;
 export let totalSecond = storageTotalSecond;
+export let timer;
 
-// 畫面載入時，先調用 showTime() 來顯示目前設定的時間 
+// 畫面載入時，先調用 showTime() 來顯示目前設定的時間
 showTime();
+
+// // * 計時開始
+// export function timerStart() {
+//   const countdown = () => {
+//     totalSecond--;
+//     showTime();
+
+//     if (totalSecond <= 0) {
+//       clearInterval(timer);
+//       timesUp();
+//     }
+//   };
+//   const timer = setInterval(countdown, 1000);
+// }
 
 // * 計時開始
 export function timerStart() {
   const countdown = () => {
     totalSecond--;
+    showTime();
+
     if (totalSecond <= 0) {
       clearInterval(timer);
+      timesUp();
     }
-    showTime();
   };
-  const timer = setInterval(countdown, 1000);
+  timer = setInterval(countdown, 1000);
 }
 
 // * 將 totalSecond 的秒數轉換成分與秒，顯示到畫面中
 export function showTime() {
   let minute = Math.floor(totalSecond / 60);
   let second = totalSecond % 60;
-
+  minute < 0 ? (minute = 0) : minute;
+  second < 0 ? (second = 0) : second;
   minute = minute < 10 ? "0" + minute : minute;
   second = second < 10 ? "0" + second : second;
   timeWrapper.innerHTML = `${minute} : ${second}`;
 }
 
-// * 取得使用者設定的時間，並更新 totalSecond 變量
+// * 取得使用者設定的時間，並更新 totalSecond
 export function settingTime() {
   // 取得使用者在 #setting-modal 中設定的 DOM，並計算出總秒數
   const settingMin = document.querySelector("#setting-minute");
@@ -35,7 +53,15 @@ export function settingTime() {
   totalSecond = Number(settingMin.value) * 60 + Number(settingSec.value);
 }
 
+export function timesUp() {
+  console.log("timesUp");
+}
 
+export function timerStop(){
+  clearInterval(timer);
+  console.log(timer)
+  totalSecond = storageTotalSecond;
+}
 
 // ! 勿動
 // const timer = setInterval(countdown, 1000);

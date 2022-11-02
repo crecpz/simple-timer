@@ -1,4 +1,4 @@
-import { settingTime, timer, timerStart, showTime, totalSecond } from "./timer";
+import { settingTime, timer, timerStart, showTime, totalSecond, storageTotalSecond, timerStop } from "./timer";
 
 // * buttons
 const btns = document.querySelectorAll(".btn");
@@ -53,6 +53,7 @@ function handleMousedown(e) {
   }
 
   if (e.target.id === "btn-stop") {
+    timerStopUI();
     timerStop();
     showTime();
   }
@@ -75,6 +76,7 @@ function handleMousedown(e) {
 
 function handleMouseup(e) {
   if (e.target.id === "btn-stop") {
+    timerStop();
   }
 
   if (e.target.id === "btn-start") {
@@ -89,19 +91,15 @@ function handleMouseup(e) {
   }
 }
 
-// function timerStart() {
-//   // todo 開始計時
-//   // 彈起 stop、pause
-//   [btnStop, btnPause].forEach((btn) => btn.removeAttribute("disabled", ""));
-// }
 
-function timerStop() {
+function timerStopUI() {
   // 彈起所有按鈕
   btnStart.removeAttribute("disabled", "");
   btnPause.setAttribute("disabled", "");
 }
 
 function timerPause() {
+  clearInterval(timer);
   btnStart.removeAttribute("disabled", "");
 }
 
