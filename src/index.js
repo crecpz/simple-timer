@@ -1,5 +1,5 @@
 import "./timer.js";
-import "./interaction.js";
+import "./appearance.js";
 import "./scss/style.scss";
 
 window.addEventListener('DOMContentLoaded', ()=> {

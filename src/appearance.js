@@ -1,4 +1,13 @@
-import { settingTime, timer, timerStart, showTime, totalSecond, storageTotalSecond, timerStop } from "./timer";
+import {
+  settingTime,
+  timer,
+  timerStart,
+  showScreenTime,
+  totalSecond,
+  storageTotalSecond,
+  timerStop,
+  timerPause,
+} from "./timer";
 
 // * buttons
 const btns = document.querySelectorAll(".btn");
@@ -6,8 +15,10 @@ const btnStop = document.querySelector("#btn-stop");
 const btnStart = document.querySelector("#btn-start");
 const btnPause = document.querySelector("#btn-pause");
 const btnSetting = document.querySelector("#btn-setting");
-const cancelBtn = document.querySelector("#cancel-btn");
-const okBtn = document.querySelector("#ok-btn");
+const btnCancel = document.querySelector("#btn-cancel");
+const btnOk = document.querySelector("#btn-ok");
+const inputMinute = document.querySelector("#setting-minute");
+const inputSecond = document.querySelector("#setting-second");
 
 btns.forEach((btn) => {
   btn.addEventListener("click", handleClick);
@@ -15,24 +26,31 @@ btns.forEach((btn) => {
   btn.addEventListener("mouseup", handleMouseup);
 });
 
-[cancelBtn, okBtn].forEach((btn) =>
+// 滑鼠按下並移開，就跳起 btnSetting 按鈕
+btnSetting.addEventListener("mouseleave", () =>
+  btnSetting.classList.remove("btn--clicked")
+);
+
+[btnCancel, btnOk].forEach((btn) =>
   btn.addEventListener("click", (e) => {
-    closeModalOverlay()
+    closeModalOverlay();
 
     if (e.target.id === "cancel-btn") {
-
     }
 
     if (e.target.id === "ok-btn") {
       settingTime();
-      showTime();
-      localStorage.setItem('totalSecond', JSON.stringify(totalSecond));
+      showScreenTime();
+      localStorage.setItem("totalSecond", JSON.stringify(totalSecond));
     }
   })
 );
 
-function handleClick(e) {
+[inputMinute, inputSecond].forEach((i) =>
+  i.addEventListener("focus", (e) => e.target.select())
+);
 
+function handleClick(e) {
   if (e.target.id === "btn-stop") {
   }
 
@@ -55,17 +73,18 @@ function handleMousedown(e) {
   if (e.target.id === "btn-stop") {
     timerStopUI();
     timerStop();
-    showTime();
+    showScreenTime();
   }
 
   if (e.target.id === "btn-start") {
     timerStart();
     [btnStop, btnPause].forEach((btn) => {
-      btn.removeAttribute("disabled", "")
+      btn.removeAttribute("disabled", "");
     });
   }
 
   if (e.target.id === "btn-pause") {
+    timerPauseUI();
     timerPause();
   }
 
@@ -91,22 +110,27 @@ function handleMouseup(e) {
   }
 }
 
-
 function timerStopUI() {
   // 彈起所有按鈕
   btnStart.removeAttribute("disabled", "");
   btnPause.setAttribute("disabled", "");
 }
 
-function timerPause() {
-  clearInterval(timer);
+function timerPauseUI() {
   btnStart.removeAttribute("disabled", "");
 }
 
 function timerSetting() {
   openModalOverlay();
+  let minute = Math.floor(totalSecond / 60);
+  let second = totalSecond % 60;
+  minute < 0 ? (minute = 0) : minute;
+  second < 0 ? (second = 0) : second;
+  minute = minute < 10 ? "0" + minute : minute;
+  second = second < 10 ? "0" + second : second;
+  inputSecond.value = second;
+  inputMinute.value = minute;
 }
-
 
 /**
  * * 開啟 modal-overlay

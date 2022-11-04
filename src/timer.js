@@ -1,10 +1,11 @@
 const timeWrapper = document.querySelector("#time-wrapper");
-export const storageTotalSecond = JSON.parse(localStorage.getItem("totalSecond")) || 0;
+export const storageTotalSecond =
+  JSON.parse(localStorage.getItem("totalSecond")) || 0;
 export let totalSecond = storageTotalSecond;
 export let timer;
 
 // 畫面載入時，先調用 showTime() 來顯示目前設定的時間
-showTime();
+showScreenTime();
 
 // // * 計時開始
 // export function timerStart() {
@@ -24,7 +25,7 @@ showTime();
 export function timerStart() {
   const countdown = () => {
     totalSecond--;
-    showTime();
+    showScreenTime();
 
     if (totalSecond <= 0) {
       clearInterval(timer);
@@ -35,7 +36,7 @@ export function timerStart() {
 }
 
 // * 將 totalSecond 的秒數轉換成分與秒，顯示到畫面中
-export function showTime() {
+export function showScreenTime() {
   let minute = Math.floor(totalSecond / 60);
   let second = totalSecond % 60;
   minute < 0 ? (minute = 0) : minute;
@@ -44,6 +45,10 @@ export function showTime() {
   second = second < 10 ? "0" + second : second;
   timeWrapper.innerHTML = `${minute} : ${second}`;
 }
+
+// export function timeConversion() {
+
+// }
 
 // * 取得使用者設定的時間，並更新 totalSecond
 export function settingTime() {
@@ -57,10 +62,14 @@ export function timesUp() {
   console.log("timesUp");
 }
 
-export function timerStop(){
+export function timerStop() {
   clearInterval(timer);
-  console.log(timer)
+  console.log(timer);
   totalSecond = storageTotalSecond;
+}
+
+export function timerPause() {
+  clearInterval(timer);
 }
 
 // ! 勿動
