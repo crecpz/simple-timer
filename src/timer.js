@@ -7,6 +7,10 @@ export let timer;
 // 畫面載入時，先調用 showTime() 來顯示目前設定的時間
 showScreenTime();
 
+const beep = document.getElementById('beep');
+beep.play()
+
+
 // // * 計時開始
 // export function timerStart() {
 //   const countdown = () => {

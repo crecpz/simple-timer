@@ -21,6 +21,13 @@ module.exports = {
           "sass-loader",
         ],
       },
+      {
+        test:/\.wav/,
+        type: "asset/resource",
+        generator: {
+          filename: "./audio"
+        }
+      }
     ],
   },
 

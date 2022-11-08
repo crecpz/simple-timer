@@ -1,10 +1,8 @@
 import {
   settingTime,
-  timer,
   timerStart,
   showScreenTime,
   totalSecond,
-  storageTotalSecond,
   timerStop,
   timerPause,
 } from "./timer";
@@ -21,9 +19,9 @@ const inputMinute = document.querySelector("#setting-minute");
 const inputSecond = document.querySelector("#setting-second");
 
 btns.forEach((btn) => {
-  btn.addEventListener("click", handleClick);
-  btn.addEventListener("mousedown", handleMousedown);
-  btn.addEventListener("mouseup", handleMouseup);
+  btn.addEventListener("click", handleBtnClick);
+  btn.addEventListener("mousedown", handleBtnMousedown);
+  btn.addEventListener("mouseup", handleBtnMouseup);
 });
 
 // 滑鼠按下並移開，就跳起 btnSetting 按鈕
@@ -35,10 +33,10 @@ btnSetting.addEventListener("mouseleave", () =>
   btn.addEventListener("click", (e) => {
     closeModalOverlay();
 
-    if (e.target.id === "cancel-btn") {
+    if (e.target.id === "btn-cancel") {
     }
 
-    if (e.target.id === "ok-btn") {
+    if (e.target.id === "btn-ok") {
       settingTime();
       showScreenTime();
       localStorage.setItem("totalSecond", JSON.stringify(totalSecond));
@@ -50,7 +48,7 @@ btnSetting.addEventListener("mouseleave", () =>
   i.addEventListener("focus", (e) => e.target.select())
 );
 
-function handleClick(e) {
+function handleBtnClick(e) {
   if (e.target.id === "btn-stop") {
   }
 
@@ -65,7 +63,7 @@ function handleClick(e) {
   }
 }
 
-function handleMousedown(e) {
+function handleBtnMousedown(e) {
   if (e.target.id !== "btn-setting") {
     e.target.setAttribute("disabled", "");
   }
@@ -93,7 +91,7 @@ function handleMousedown(e) {
   }
 }
 
-function handleMouseup(e) {
+function handleBtnMouseup(e) {
   if (e.target.id === "btn-stop") {
     timerStop();
   }
