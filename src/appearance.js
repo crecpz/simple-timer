@@ -7,16 +7,27 @@ import {
   timerPause,
 } from "./timer";
 
+import mousedownAudio from "./audio/mousedown.wav";
+import settingMousedownAudio from "./audio/setting-mousedown.wav";
+import settingMouseupAudio from "./audio/setting-mouseup.wav";
+
 // * buttons
 const btns = document.querySelectorAll(".btn");
-const btnStop = document.querySelector("#btn-stop");
+export const btnStop = document.querySelector("#btn-stop");
 const btnStart = document.querySelector("#btn-start");
 const btnPause = document.querySelector("#btn-pause");
 const btnSetting = document.querySelector("#btn-setting");
 const btnCancel = document.querySelector("#btn-cancel");
 const btnOk = document.querySelector("#btn-ok");
+// * time setting input
 const inputMinute = document.querySelector("#setting-minute");
 const inputSecond = document.querySelector("#setting-second");
+// * led
+const led = document.getElementById("led");
+// * buttons audio
+const mousedown = new Audio(mousedownAudio);
+const settingMousedown = new Audio(settingMousedownAudio);
+const settingMouseup = new Audio(settingMouseupAudio);
 
 // * 為 4 個按鈕新增事件
 btns.forEach((btn) => {
@@ -51,7 +62,7 @@ btnSetting.addEventListener("mouseleave", () =>
 
 /**
  * * 處理 4 個 btn click 事件
- * @param {*} e 
+ * @param {*} e
  */
 function handleBtnClick(e) {
   if (e.target.id === "btn-stop") {
@@ -69,21 +80,32 @@ function handleBtnClick(e) {
 }
 /**
  * * 處理 4 個 btn mousedown 事件
- * @param {*} e 
+ * @param {*} e
  */
 function handleBtnMousedown(e) {
+  
+
   if (e.target.id !== "btn-setting") {
     e.target.setAttribute("disabled", "");
+    mousedown.currentTime = 0;
+    mousedown.play();
   }
 
   if (e.target.id === "btn-stop") {
+    led.classList.remove("led__light--running");
+    led.classList.remove("led__light--pause");
     timerStopUI();
     timerStop();
     showScreenTime();
+    led.classList.remove("led__light-animation");
+    btnStop.classList.remove("btn--animation");
   }
 
   if (e.target.id === "btn-start") {
     timerStart();
+    led.classList.add("led__light--running");
+    led.classList.remove("led__light--pause");
+    // led.classList.add('led__light-animation--times-up');
     [btnStop, btnPause].forEach((btn) => {
       btn.removeAttribute("disabled", "");
     });
@@ -92,16 +114,19 @@ function handleBtnMousedown(e) {
   if (e.target.id === "btn-pause") {
     timerPauseUI();
     timerPause();
+    led.classList.remove("led__light--running");
+    led.classList.add("led__light--pause");
   }
 
   if (e.target.id === "btn-setting") {
     btnSetting.classList.add("btn--clicked");
+    settingMousedown.play();
   }
 }
 
 /**
  * * 處理 4 個 btn mouseup 事件
- * @param {*} e 
+ * @param {*} e
  */
 function handleBtnMouseup(e) {
   if (e.target.id === "btn-stop") {
@@ -117,6 +142,7 @@ function handleBtnMouseup(e) {
   if (e.target.id === "btn-setting") {
     btnSetting.classList.remove("btn--clicked");
     timerSetting();
+    settingMouseup.play();
   }
 }
 
