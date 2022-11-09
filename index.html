@@ -25,7 +25,7 @@
 <!-- https://freesound.org/data/previews/614/614379_10912485-lq.mp3 -->
 
 <body class="no-transition">
-    <div class="container">
+    <div class="timer-container">
         <div class="timer">
             <!-- 計時器上半部 -->
             <div class="timer__top">
@@ -36,21 +36,21 @@
                     </div>
                 </div>
 
-                <!-- 散熱孔 -->
-                <div class="vents">
-                    <div class="vent">
-                        <div class="vent__hole"></div>
-                        <div class="vent__hole"></div>
-                        <div class="vent__hole"></div>
-                        <div class="vent__hole"></div>
-                        <div class="vent__hole"></div>
+                <!-- 孔 -->
+                <div class="hole-wrapper">
+                    <div class="hole">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
                     </div>
-                    <div class="vent">
-                        <div class="vent__hole"></div>
-                        <div class="vent__hole"></div>
-                        <div class="vent__hole"></div>
-                        <div class="vent__hole"></div>
-                        <div class="vent__hole"></div>
+                    <div class="hole">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
                     </div>
                 </div>
             </div>
@@ -75,19 +75,13 @@
 
             <!-- 計時器下半部 -->
             <div class="timer__bottom">
-                <div class="pilot-lamp">
-                    <span class="pilot-lamp__text">WORKING</span>
-                    <div id="pilot-light" class="pilot-lamp__light"></div>
+                <div class="led">
+                    <span class="led__text">Running</span>
+                    <div id="led" class="led__light"></div>
                 </div>
             </div>
         </div>
     </div>
-
-
-
-
-
-
 
 
     <div class="modal-overlay">
@@ -115,5 +109,4 @@
         </div>
     </div>
 </body>
-
 </html>
