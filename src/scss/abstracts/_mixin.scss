@@ -1,3 +1,6 @@
+@use "./function" as *;
+@use "./maps" as *;
+
 @mixin flex($dir: row, $jc: flex-start, $ai: stretch){
   display: flex;
   flex-direction: $dir;
@@ -10,4 +13,9 @@
   @media (hover: hover) {
     @content;
   }
+}
+
+// 用於設定文字大小
+@mixin text($size) {
+  font-size: deep-map-get($text, size, $size);
 }

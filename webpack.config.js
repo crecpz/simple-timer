@@ -1,10 +1,13 @@
 const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const { Template } = require("webpack");
 
 module.exports = {
   entry: "./src/index.js",
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "main.js",
+    clean: true,
   },
 
   // @ loader
@@ -22,12 +25,17 @@ module.exports = {
         ],
       },
       {
-        test:/\.wav/,
-        type: "asset/resource",
-        generator: {
-          filename: "./audio"
-        }
-      }
+        test: /\.wav$/,
+        use: [
+          {
+            loader: "file-loader",
+            options: {
+              name: "[name].[ext]",
+              outputPath: "audio",
+            },
+          },
+        ],
+      },
     ],
   },
 
@@ -44,7 +52,11 @@ module.exports = {
   },
 
   // @ 插件
-  plugins: [],
+  plugins: [
+    new HtmlWebpackPlugin({
+    template: path.resolve(__dirname, "public/index.html")
+  }
+  )],
 
   // @ 模式
   mode: "development",

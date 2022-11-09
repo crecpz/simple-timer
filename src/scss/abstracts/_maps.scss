@@ -1,48 +1,68 @@
-@use "variable" as var;
+@use "variable" as *;
 
 $components-color: (
-  "timer-middle": var.$white-dark,
+  "timer-middle": $white-dark,
 
   "btn-white-front": #ffffff,
   "btn-white-corner-light": #cccccc,
   "btn-white-corner-dark": #4d4d4d,
   "btn-white-front-pressed": #f2f2f2,
-  "btn-white-side": var.$white-darker,
-  "btn-white-side-pressed": var.$white-darkest,
+  "btn-white-side": $white-darker,
+  "btn-white-side-pressed": $white-darkest,
 
-  "btn-orange-front": var.$orange-base,
-  "btn-orange-corner-light": var.$orange-corner-ligtht,
-  "btn-orange-corner-dark": var.$orange-corner-dark,
-  "btn-orange-front-pressed": var.$orange-dark,
-  "btn-orange-side": var.$orange-darker,
-  "btn-orange-side-pressed": var.$orange-darkest,
+  "btn-orange-front": $orange-base,
+  "btn-orange-corner-light": $orange-corner-ligtht,
+  "btn-orange-corner-dark": $orange-corner-dark,
+  "btn-orange-front-pressed": $orange-dark,
+  "btn-orange-side": $orange-darker,
+  "btn-orange-side-pressed": $orange-darkest,
 
-  "screen-base": var.$green-base,
-  "screen-dark": var.$green-dark,
-  "screen-outer": var.$gray-deep,
+  "screen-base": $green-base,
+  "screen-dark": $green-dark,
+  "screen-outer": $gray-deep,
 
-  "vents": var.$gray-deep,
-  
-  "btn-wrapper": var.$gray-deep,
+  "vents": $gray-deep,
+
+  "btn-wrapper": $gray-deep,
   "timer-bottom": #2d2d2d,
-  
-  "light-stop": var.$red-dark,
-  "light-start": var.$red-base,
-  "light-pause": var.$orange-normal,
+
+  "light-stop": $red-dark,
+  "light-start": $red-base,
+  "light-pause": $orange-normal,
 );
 
 $modal-color: (
-  "background": var.$green-base,
-  "text-color": var.$green-dark,
-  "btn-border": var.$green-dark,
-  "btn-hover-bg": var.$green-dark,
-  "btn-hover-text": var.$green-base,
+  "background": $green-base,
+  "text-color": $green-dark,
+  "btn-border": $green-dark,
+  "btn-hover-bg": $green-dark,
+  "btn-hover-text": $green-base,
 );
 
-$font-size:(
+$font-size: (
   // screen
-  time-default: var.$time-font-size,
-  times-up: var.$times-up-font-size,
+  time-default: $time-font-size,
+  times-up: $times-up-font-size
+);
+
+// text
+$text: (
+  size: (
+    xs: 0.75rem,
+    sm: 0.875rem,
+    base: 1rem,
+    lg: 1.125rem,
+    xl: 1.25rem,
+    2xl: 1.5rem,
+    3xl: 1.875rem,
+    4xl: 2.25rem,
+    5xl: 3rem,
+    6xl: 3.75rem,
+    7xl: 4.5rem,
+  ),
+  // spacing:(
+  //   base:  0.15em,
+  // ),,,,
 );
 
 // $list1: 100ms 200ms 300ms;
@@ -50,7 +70,6 @@ $font-size:(
 // $list3: width height margin;
 
 // @debug zip($list1, $list2, $list3); //Debug: 100ms ease width, 200ms ease-in height, 300ms ease-in-out margin
-
 
 // $list1: 100ms 200ms 300ms;
 // $list2: ease ease-in;

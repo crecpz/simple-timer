@@ -18,13 +18,14 @@ const btnOk = document.querySelector("#btn-ok");
 const inputMinute = document.querySelector("#setting-minute");
 const inputSecond = document.querySelector("#setting-second");
 
+// * 為 4 個按鈕新增事件
 btns.forEach((btn) => {
   btn.addEventListener("click", handleBtnClick);
   btn.addEventListener("mousedown", handleBtnMousedown);
   btn.addEventListener("mouseup", handleBtnMouseup);
 });
 
-// 滑鼠按下並移開，就跳起 btnSetting 按鈕
+// * 滑鼠按下並移開，就跳起 btnSetting 按鈕
 btnSetting.addEventListener("mouseleave", () =>
   btnSetting.classList.remove("btn--clicked")
 );
@@ -48,6 +49,10 @@ btnSetting.addEventListener("mouseleave", () =>
   i.addEventListener("focus", (e) => e.target.select())
 );
 
+/**
+ * * 處理 4 個 btn click 事件
+ * @param {*} e 
+ */
 function handleBtnClick(e) {
   if (e.target.id === "btn-stop") {
   }
@@ -62,7 +67,10 @@ function handleBtnClick(e) {
   if (e.target.id === "btn-setting") {
   }
 }
-
+/**
+ * * 處理 4 個 btn mousedown 事件
+ * @param {*} e 
+ */
 function handleBtnMousedown(e) {
   if (e.target.id !== "btn-setting") {
     e.target.setAttribute("disabled", "");
@@ -91,6 +99,10 @@ function handleBtnMousedown(e) {
   }
 }
 
+/**
+ * * 處理 4 個 btn mouseup 事件
+ * @param {*} e 
+ */
 function handleBtnMouseup(e) {
   if (e.target.id === "btn-stop") {
     timerStop();
@@ -108,16 +120,25 @@ function handleBtnMouseup(e) {
   }
 }
 
+/**
+ * * 處理停止鈕的 UI 相關
+ */
 function timerStopUI() {
   // 彈起所有按鈕
   btnStart.removeAttribute("disabled", "");
   btnPause.setAttribute("disabled", "");
 }
 
+/**
+ * * 處理暫停鈕的 UI 相關
+ */
 function timerPauseUI() {
   btnStart.removeAttribute("disabled", "");
 }
 
+/**
+ * * 計時設定
+ */
 function timerSetting() {
   openModalOverlay();
   let minute = Math.floor(totalSecond / 60);

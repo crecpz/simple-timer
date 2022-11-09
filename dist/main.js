@@ -40,6 +40,16 @@ eval("\n\nmodule.exports = function (i) {\n  return i[1];\n};\n\n//# sourceURL=w
 
 /***/ }),
 
+/***/ "./src/audio/beep.wav":
+/*!****************************!*\
+  !*** ./src/audio/beep.wav ***!
+  \****************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__webpack_require__.p + \"audio/beep.wav\");\n\n//# sourceURL=webpack://timer/./src/audio/beep.wav?");
+
+/***/ }),
+
 /***/ "./src/scss/style.scss":
 /*!*****************************!*\
   !*** ./src/scss/style.scss ***!
@@ -126,7 +136,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _tim
   \**********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _timer_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./timer.js */ \"./src/timer.js\");\n/* harmony import */ var _appearance_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./appearance.js */ \"./src/appearance.js\");\n/* harmony import */ var _scss_style_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./scss/style.scss */ \"./src/scss/style.scss\");\n\r\n\r\n\r\n\r\nwindow.addEventListener('DOMContentLoaded', ()=> {\r\n  setTimeout(()=> {\r\n    document.body.classList.remove('no-transition')\r\n  }, 300)\r\n})\n\n//# sourceURL=webpack://timer/./src/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _timer_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./timer.js */ \"./src/timer.js\");\n/* harmony import */ var _appearance_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./appearance.js */ \"./src/appearance.js\");\n/* harmony import */ var _scss_style_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./scss/style.scss */ \"./src/scss/style.scss\");\n/* harmony import */ var _audio_beep_wav__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./audio/beep.wav */ \"./src/audio/beep.wav\");\n\r\n\r\n\r\n\r\n\r\nwindow.addEventListener('DOMContentLoaded', ()=> {\r\n  setTimeout(()=> {\r\n    document.body.classList.remove('no-transition')\r\n  }, 300)\r\n})\r\n\r\n\n\n//# sourceURL=webpack://timer/./src/index.js?");
 
 /***/ }),
 
@@ -136,7 +146,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _tim
   \**********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"settingTime\": () => (/* binding */ settingTime),\n/* harmony export */   \"showScreenTime\": () => (/* binding */ showScreenTime),\n/* harmony export */   \"storageTotalSecond\": () => (/* binding */ storageTotalSecond),\n/* harmony export */   \"timer\": () => (/* binding */ timer),\n/* harmony export */   \"timerPause\": () => (/* binding */ timerPause),\n/* harmony export */   \"timerStart\": () => (/* binding */ timerStart),\n/* harmony export */   \"timerStop\": () => (/* binding */ timerStop),\n/* harmony export */   \"timesUp\": () => (/* binding */ timesUp),\n/* harmony export */   \"totalSecond\": () => (/* binding */ totalSecond)\n/* harmony export */ });\nconst timeWrapper = document.querySelector(\"#time-wrapper\");\r\nconst storageTotalSecond =\r\n  JSON.parse(localStorage.getItem(\"totalSecond\")) || 0;\r\nlet totalSecond = storageTotalSecond;\r\nlet timer;\r\n\r\n// 畫面載入時，先調用 showTime() 來顯示目前設定的時間\r\nshowScreenTime();\r\n\r\nconst beep = document.getElementById('beep');\r\nbeep.play()\r\n\r\n\r\n// // * 計時開始\r\n// export function timerStart() {\r\n//   const countdown = () => {\r\n//     totalSecond--;\r\n//     showTime();\r\n\r\n//     if (totalSecond <= 0) {\r\n//       clearInterval(timer);\r\n//       timesUp();\r\n//     }\r\n//   };\r\n//   const timer = setInterval(countdown, 1000);\r\n// }\r\n\r\n// * 計時開始\r\nfunction timerStart() {\r\n  const countdown = () => {\r\n    totalSecond--;\r\n    showScreenTime();\r\n\r\n    if (totalSecond <= 0) {\r\n      clearInterval(timer);\r\n      timesUp();\r\n    }\r\n  };\r\n  timer = setInterval(countdown, 1000);\r\n}\r\n\r\n// * 將 totalSecond 的秒數轉換成分與秒，顯示到畫面中\r\nfunction showScreenTime() {\r\n  let minute = Math.floor(totalSecond / 60);\r\n  let second = totalSecond % 60;\r\n  minute < 0 ? (minute = 0) : minute;\r\n  second < 0 ? (second = 0) : second;\r\n  minute = minute < 10 ? \"0\" + minute : minute;\r\n  second = second < 10 ? \"0\" + second : second;\r\n  timeWrapper.innerHTML = `${minute} : ${second}`;\r\n}\r\n\r\n// export function timeConversion() {\r\n\r\n// }\r\n\r\n// * 取得使用者設定的時間，並更新 totalSecond\r\nfunction settingTime() {\r\n  // 取得使用者在 #setting-modal 中設定的 DOM，並計算出總秒數\r\n  const settingMin = document.querySelector(\"#setting-minute\");\r\n  const settingSec = document.querySelector(\"#setting-second\");\r\n  totalSecond = Number(settingMin.value) * 60 + Number(settingSec.value);\r\n}\r\n\r\nfunction timesUp() {\r\n  console.log(\"timesUp\");\r\n}\r\n\r\nfunction timerStop() {\r\n  clearInterval(timer);\r\n  console.log(timer);\r\n  totalSecond = storageTotalSecond;\r\n}\r\n\r\nfunction timerPause() {\r\n  clearInterval(timer);\r\n}\r\n\r\n// ! 勿動\r\n// const timer = setInterval(countdown, 1000);\r\n// function countdown() {\r\n//   let minute = Math.floor(totalSecond / 60);\r\n//   let second = totalSecond % 60;\r\n//   totalSecond--;\r\n\r\n//   if (totalSecond < 0) {\r\n//     clearInterval(timer);\r\n//   }\r\n\r\n//   minute = minute < 10 ? \"0\" + minute : minute;\r\n//   second = second < 10 ? \"0\" + second : second;\r\n//   timeWrapper.innerHTML = `${minute} : ${second}`;\r\n// }\r\n\n\n//# sourceURL=webpack://timer/./src/timer.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"settingTime\": () => (/* binding */ settingTime),\n/* harmony export */   \"showScreenTime\": () => (/* binding */ showScreenTime),\n/* harmony export */   \"storageTotalSecond\": () => (/* binding */ storageTotalSecond),\n/* harmony export */   \"timer\": () => (/* binding */ timer),\n/* harmony export */   \"timerPause\": () => (/* binding */ timerPause),\n/* harmony export */   \"timerStart\": () => (/* binding */ timerStart),\n/* harmony export */   \"timerStop\": () => (/* binding */ timerStop),\n/* harmony export */   \"timesUp\": () => (/* binding */ timesUp),\n/* harmony export */   \"totalSecond\": () => (/* binding */ totalSecond)\n/* harmony export */ });\n/* harmony import */ var _audio_beep_wav__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./audio/beep.wav */ \"./src/audio/beep.wav\");\n\r\n\r\nconsole.log(_audio_beep_wav__WEBPACK_IMPORTED_MODULE_0__[\"default\"])\r\nconst timeWrapper = document.querySelector(\"#time-wrapper\");\r\nconst storageTotalSecond =\r\n  JSON.parse(localStorage.getItem(\"totalSecond\")) || 0;\r\nlet totalSecond = storageTotalSecond;\r\nlet timer;\r\n\r\n// 畫面載入時，先調用 showTime() 來顯示目前設定的時間\r\nshowScreenTime();\r\n\r\n// const beep = document.getElementById('beep');\r\n\r\n// beep.play()\r\n\r\n\r\n\r\n\r\n// // * 計時開始\r\n// export function timerStart() {\r\n//   const countdown = () => {\r\n//     totalSecond--;\r\n//     showTime();\r\n\r\n//     if (totalSecond <= 0) {\r\n//       clearInterval(timer);\r\n//       timesUp();\r\n//     }\r\n//   };\r\n//   const timer = setInterval(countdown, 1000);\r\n// }\r\n\r\n// * 計時開始\r\nfunction timerStart() {\r\n  const countdown = () => {\r\n    totalSecond--;\r\n    showScreenTime();\r\n\r\n    if (totalSecond <= 0) {\r\n      clearInterval(timer);\r\n      timesUp();\r\n    }\r\n  };\r\n  timer = setInterval(countdown, 1000);\r\n}\r\n\r\n// * 將 totalSecond 的秒數轉換成分與秒，顯示到畫面中\r\nfunction showScreenTime() {\r\n  let minute = Math.floor(totalSecond / 60);\r\n  let second = totalSecond % 60;\r\n  minute < 0 ? (minute = 0) : minute;\r\n  second < 0 ? (second = 0) : second;\r\n  minute = minute < 10 ? \"0\" + minute : minute;\r\n  second = second < 10 ? \"0\" + second : second;\r\n  timeWrapper.innerHTML = `${minute} : ${second}`;\r\n}\r\n\r\n// export function timeConversion() {\r\n\r\n// }\r\n\r\n// * 取得使用者設定的時間，並更新 totalSecond\r\nfunction settingTime() {\r\n  // 取得使用者在 #setting-modal 中設定的 DOM，並計算出總秒數\r\n  const settingMin = document.querySelector(\"#setting-minute\");\r\n  const settingSec = document.querySelector(\"#setting-second\");\r\n  totalSecond = Number(settingMin.value) * 60 + Number(settingSec.value);\r\n}\r\n\r\nfunction timesUp() {\r\n  console.log(\"timesUp\");\r\n}\r\n\r\nfunction timerStop() {\r\n  clearInterval(timer);\r\n  console.log(timer);\r\n  totalSecond = storageTotalSecond;\r\n}\r\n\r\nfunction timerPause() {\r\n  clearInterval(timer);\r\n}\r\n\r\n// ! 勿動\r\n// const timer = setInterval(countdown, 1000);\r\n// function countdown() {\r\n//   let minute = Math.floor(totalSecond / 60);\r\n//   let second = totalSecond % 60;\r\n//   totalSecond--;\r\n\r\n//   if (totalSecond < 0) {\r\n//     clearInterval(timer);\r\n//   }\r\n\r\n//   minute = minute < 10 ? \"0\" + minute : minute;\r\n//   second = second < 10 ? \"0\" + second : second;\r\n//   timeWrapper.innerHTML = `${minute} : ${second}`;\r\n// }\r\n\n\n//# sourceURL=webpack://timer/./src/timer.js?");
 
 /***/ })
 
@@ -191,6 +201,18 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /******/ 		};
 /******/ 	})();
 /******/ 	
+/******/ 	/* webpack/runtime/global */
+/******/ 	(() => {
+/******/ 		__webpack_require__.g = (function() {
+/******/ 			if (typeof globalThis === 'object') return globalThis;
+/******/ 			try {
+/******/ 				return this || new Function('return this')();
+/******/ 			} catch (e) {
+/******/ 				if (typeof window === 'object') return window;
+/******/ 			}
+/******/ 		})();
+/******/ 	})();
+/******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
 /******/ 	(() => {
 /******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
@@ -205,6 +227,26 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /******/ 			}
 /******/ 			Object.defineProperty(exports, '__esModule', { value: true });
 /******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/publicPath */
+/******/ 	(() => {
+/******/ 		var scriptUrl;
+/******/ 		if (__webpack_require__.g.importScripts) scriptUrl = __webpack_require__.g.location + "";
+/******/ 		var document = __webpack_require__.g.document;
+/******/ 		if (!scriptUrl && document) {
+/******/ 			if (document.currentScript)
+/******/ 				scriptUrl = document.currentScript.src
+/******/ 			if (!scriptUrl) {
+/******/ 				var scripts = document.getElementsByTagName("script");
+/******/ 				if(scripts.length) scriptUrl = scripts[scripts.length - 1].src
+/******/ 			}
+/******/ 		}
+/******/ 		// When supporting browsers where an automatic publicPath is not supported you must specify an output.publicPath manually via configuration
+/******/ 		// or pass an empty string ("") and set the __webpack_public_path__ variable from your code to use your own logic.
+/******/ 		if (!scriptUrl) throw new Error("Automatic publicPath is not supported in this browser");
+/******/ 		scriptUrl = scriptUrl.replace(/#.*$/, "").replace(/\?.*$/, "").replace(/\/[^\/]+$/, "/");
+/******/ 		__webpack_require__.p = scriptUrl;
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/nonce */

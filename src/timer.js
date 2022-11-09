@@ -1,29 +1,17 @@
+import beepAudio from "./audio/beep.wav";
+const beep = new Audio(beepAudio);
+
 const timeWrapper = document.querySelector("#time-wrapper");
 export const storageTotalSecond =
   JSON.parse(localStorage.getItem("totalSecond")) || 0;
 export let totalSecond = storageTotalSecond;
-export let timer;
+export let timer,
+  timesUpInterval,
+  timeIsUp = false;
 
 // 畫面載入時，先調用 showTime() 來顯示目前設定的時間
 showScreenTime();
 
-const beep = document.getElementById('beep');
-beep.play()
-
-
-// // * 計時開始
-// export function timerStart() {
-//   const countdown = () => {
-//     totalSecond--;
-//     showTime();
-
-//     if (totalSecond <= 0) {
-//       clearInterval(timer);
-//       timesUp();
-//     }
-//   };
-//   const timer = setInterval(countdown, 1000);
-// }
 
 // * 計時開始
 export function timerStart() {
@@ -50,9 +38,6 @@ export function showScreenTime() {
   timeWrapper.innerHTML = `${minute} : ${second}`;
 }
 
-// export function timeConversion() {
-
-// }
 
 // * 取得使用者設定的時間，並更新 totalSecond
 export function settingTime() {
@@ -63,13 +48,17 @@ export function settingTime() {
 }
 
 export function timesUp() {
-  console.log("timesUp");
+  timeIsUp = true;
+  timesUpInterval = setInterval(() => beep.play(), 1200);
 }
 
 export function timerStop() {
   clearInterval(timer);
-  console.log(timer);
   totalSecond = storageTotalSecond;
+  if(timeIsUp){
+    clearInterval(timesUpInterval);
+    timeIsUp = false;
+  }
 }
 
 export function timerPause() {
