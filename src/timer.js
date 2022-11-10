@@ -1,4 +1,4 @@
-import { btnStop } from "./appearance";
+import { btnStop,btnPause } from "./appearance";
 import beepAudio from "./audio/beep.wav";
 const beep = new Audio(beepAudio);
 const timeWrapper = document.querySelector("#time-wrapper");
@@ -11,6 +11,8 @@ export let timer,
 
 // 畫面載入時，先調用 showTime() 來顯示目前設定的時間
 showScreenTime();
+
+
 
 /**
  * * 將 totalSecond 的秒數轉換成分與秒，顯示到畫面中
@@ -25,7 +27,6 @@ export function showScreenTime() {
   timeWrapper.innerHTML = `${minute} : ${second}`;
 }
 
-
 /**
  * * 取得使用者設定的時間，並更新 totalSecond
  */
@@ -36,17 +37,18 @@ export function settingTime() {
   totalSecond = Number(settingMin.value) * 60 + Number(settingSec.value);
 }
 
-
 /**
  * * 計時開始
  */
 export function timerStart() {
-
   const countdown = () => {
     totalSecond--;
     showScreenTime();
+    // 如果 totalSecond <= 0 代表時間到
     if (totalSecond <= 0) {
+      // 清除計時器
       clearInterval(timer);
+      // 調用時間到的函數
       timesUp();
     }
   };
@@ -59,7 +61,7 @@ export function timerStart() {
 export function timerStop() {
   clearInterval(timer);
   totalSecond = storageTotalSecond;
-  if(timeIsUp){
+  if (timeIsUp) {
     clearInterval(timesUpInterval);
     timeIsUp = false;
   }
@@ -73,26 +75,12 @@ export function timerPause() {
 }
 
 /**
- * * 時間到時所調用的函式
+ * * 時間到
  */
 export function timesUp() {
   timeIsUp = true;
-  timesUpInterval = setInterval(() => beep.play(), 1200);
-  btnStop.classList.add('btn--animation');
+  timesUpInterval = setInterval(() => beep.play(), 1000);
+  btnStop.classList.add("btn--animation");
+  // 時間到之後，就不再准許使用者按下暫停
+  btnPause.setAttribute("disabled", "");
 }
-
-// ! 勿動
-// const timer = setInterval(countdown, 1000);
-// function countdown() {
-//   let minute = Math.floor(totalSecond / 60);
-//   let second = totalSecond % 60;
-//   totalSecond--;
-
-//   if (totalSecond < 0) {
-//     clearInterval(timer);
-//   }
-
-//   minute = minute < 10 ? "0" + minute : minute;
-//   second = second < 10 ? "0" + second : second;
-//   timeWrapper.innerHTML = `${minute} : ${second}`;
-// }

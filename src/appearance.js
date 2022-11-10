@@ -15,15 +15,18 @@ import settingMouseupAudio from "./audio/setting-mouseup.wav";
 const btns = document.querySelectorAll(".btn");
 export const btnStop = document.querySelector("#btn-stop");
 const btnStart = document.querySelector("#btn-start");
-const btnPause = document.querySelector("#btn-pause");
+export const btnPause = document.querySelector("#btn-pause");
 const btnSetting = document.querySelector("#btn-setting");
 const btnCancel = document.querySelector("#btn-cancel");
 const btnOk = document.querySelector("#btn-ok");
+
 // * time setting input
 const inputMinute = document.querySelector("#setting-minute");
 const inputSecond = document.querySelector("#setting-second");
+
 // * led
 const led = document.getElementById("led");
+
 // * buttons audio
 const mousedown = new Audio(mousedownAudio);
 const settingMousedown = new Audio(settingMousedownAudio);
@@ -31,7 +34,7 @@ const settingMouseup = new Audio(settingMouseupAudio);
 
 // * 為 4 個按鈕新增事件
 btns.forEach((btn) => {
-  btn.addEventListener("click", handleBtnClick);
+  // btn.addEventListener("click", handleBtnClick);
   btn.addEventListener("mousedown", handleBtnMousedown);
   btn.addEventListener("mouseup", handleBtnMouseup);
 });
@@ -60,24 +63,25 @@ btnSetting.addEventListener("mouseleave", () =>
   i.addEventListener("focus", (e) => e.target.select())
 );
 
-/**
- * * 處理 4 個 btn click 事件
- * @param {*} e
- */
-function handleBtnClick(e) {
-  if (e.target.id === "btn-stop") {
-  }
+// /**
+//  * * 處理 4 個 btn click 事件
+//  * @param {*} e
+//  */
+// function handleBtnClick(e) {
+//   if (e.target.id === "btn-stop") {
+//   }
 
-  if (e.target.id === "btn-start") {
-    // timerStart();
-  }
+//   if (e.target.id === "btn-start") {
+//     // timerStart();
+//   }
 
-  if (e.target.id === "btn-pause") {
-  }
+//   if (e.target.id === "btn-pause") {
+//   }
 
-  if (e.target.id === "btn-setting") {
-  }
-}
+//   if (e.target.id === "btn-setting") {
+//   }
+// }
+
 /**
  * * 處理 4 個 btn mousedown 事件
  * @param {*} e
@@ -150,7 +154,7 @@ function handleBtnMouseup(e) {
  * * 處理停止鈕的 UI 相關
  */
 function timerStopUI() {
-  // 彈起所有按鈕
+  // 彈起 start 按鈕
   btnStart.removeAttribute("disabled", "");
   btnPause.setAttribute("disabled", "");
 }
@@ -163,7 +167,7 @@ function timerPauseUI() {
 }
 
 /**
- * * 計時設定
+ * * 計時設定介面與其設定
  */
 function timerSetting() {
   openModalOverlay();
@@ -194,3 +198,4 @@ function closeModalOverlay() {
   const modalOverlay = document.querySelector(".modal-overlay");
   modalOverlay.classList.remove("modal-overlay--active");
 }
+
