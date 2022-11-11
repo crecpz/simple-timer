@@ -1,18 +1,17 @@
-import { btnStop,btnPause } from "./appearance";
+import { btnStop, btnPause } from "./appearance";
 import beepAudio from "./audio/beep.wav";
+
 const beep = new Audio(beepAudio);
 const timeWrapper = document.querySelector("#time-wrapper");
 export const storageTotalSecond =
-  JSON.parse(localStorage.getItem("totalSecond")) || 0;
+  JSON.parse(localStorage.getItem("totalSecond")) || 1500;
 export let totalSecond = storageTotalSecond;
-export let timer,
-  timesUpInterval,
-  timeIsUp = false;
+export let timer;
+export let timesUpInterval;
+export let timeIsUp = false;
 
 // 畫面載入時，先調用 showTime() 來顯示目前設定的時間
 showScreenTime();
-
-
 
 /**
  * * 將 totalSecond 的秒數轉換成分與秒，顯示到畫面中
