@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Timer</title>
+    <title>Simple-Timer</title>
     <!-- font awsome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
         integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
@@ -20,14 +20,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Saira+Semi+Condensed:wght@600&display=swap" rel="stylesheet">
-
 <script defer src="main.js"></script></head>
-<!-- https://freesound.org/data/previews/614/614379_10912485-lq.mp3 -->
 
 <body class="no-transition">
     <div class="timer-container">
         <div class="timer">
-            <!-- 計時器上半部 -->
+            <!-- 上半部 -->
             <div class="timer__top">
                 <div class="timer__screen-outer">
                     <div class="timer__screen-inner">
@@ -55,7 +53,7 @@
                 </div>
             </div>
 
-            <!-- 計時器中間 -->
+            <!-- 中間 -->
             <div class="timer__middle">
                 <ul class="btn-icons">
                     <li class="btn-icon"><i class="fa-solid fa-stop"></i></li>
@@ -73,7 +71,7 @@
                 </div>
             </div>
 
-            <!-- 計時器下半部 -->
+            <!-- 下半部 -->
             <div class="timer__bottom">
                 <div class="led">
                     <span class="led__text">Running</span>
@@ -87,6 +85,7 @@
     <div class="modal-overlay">
         <!-- setting-modal -->
         <div id="setting-modal" class="setting-modal">
+            <div class="setting-modal__msg">Number only!</div>
             <!-- setting-modal > form -->
             <form class="setting-modal__form">
                 <label for="setting-minute" class="setting-modal__label"><span>Minute</span>

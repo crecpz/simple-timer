@@ -10,7 +10,6 @@ import {
   timerPause,
 } from "./timer";
 
-
 // * buttons
 const btns = document.querySelectorAll(".btn");
 export const btnStop = document.querySelector("#btn-stop");
@@ -85,7 +84,6 @@ function handleBtnMousedown(e) {
     timerStart();
     led.classList.add("led__light--running");
     led.classList.remove("led__light--pause");
-    // led.classList.add('led__light-animation--times-up');
     [btnStop, btnPause].forEach((btn) => {
       btn.removeAttribute("disabled", "");
     });
@@ -117,6 +115,11 @@ function handleBtnMouseup(e) {
     btnSetting.classList.remove("btn--clicked");
     timerSetting();
     settingMouseup.play();
+
+    timerPause();
+    timerPauseUI();
+    led.classList.add("led__light--pause");
+    led.classList.remove("led__light--running");
   }
 }
 
@@ -168,3 +171,42 @@ function closeModalOverlay() {
   const modalOverlay = document.querySelector(".modal-overlay");
   modalOverlay.classList.remove("modal-overlay--active");
 }
+
+// Restricts input for the given textbox to the given inputFilter.
+function setInputFilter(textbox, inputFilter) {
+  [
+    "input",
+    "keydown",
+    "keyup",
+    "mousedown",
+    "mouseup",
+    "select",
+    "contextmenu",
+    "drop",
+  ].forEach(function (event) {
+    textbox.addEventListener(event, function () {
+      if (inputFilter(this.value)) {
+        this.oldValue = this.value;
+        this.oldSelectionStart = this.selectionStart;
+        this.oldSelectionEnd = this.selectionEnd;
+      } else if (this.hasOwnProperty("oldValue")) {
+        console.log(document.querySelector(".setting-modal__msg"))
+        document.querySelector(".setting-modal__msg").classList.add("active");
+        this.value = this.oldValue;
+        this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
+      }
+    });
+  });
+}
+
+// Restrict input to digits and '.' by using a regular expression filter.
+setInputFilter(document.getElementById("setting-minute"), function (value) {
+  return /^\d*\.?\d*$/.test(value);
+});
+setInputFilter(document.getElementById("setting-second"), function (value) {
+  return /^\d*$/.test(value);
+  // return /^\d*\.?\d*$/.test(value);
+});
+
+// setting-minute
+// setting-second

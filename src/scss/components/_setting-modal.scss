@@ -9,16 +9,16 @@
   inset: 0;
   width: 100%;
   height: 100vh;
-  background-color: rgba(0,0,0,.5);
+  background-color: rgba(0, 0, 0, 0.5);
 
-  transition-property:  opacity, visibility;
+  transition-property: opacity, visibility;
   transition-duration: 500ms;
 
   &--active {
     opacity: 1;
     visibility: visible;
 
-    .setting-modal{
+    .setting-modal {
       visibility: visible;
       opacity: 1;
       transform: translate(-50%, -50%);
@@ -26,19 +26,15 @@
   }
 }
 
-
-
 %screen-style {
   font-family: $primary-font;
   color: map-get($components-color, "screen-dark");
 }
 
-
-
 .setting-modal {
   visibility: hidden;
   opacity: 0;
-  
+
   position: fixed;
   left: 50%;
   top: 50%;
@@ -53,6 +49,31 @@
   transition-property: visibility, opacity;
   transition: 500ms ease-in-out;
 
+  &__msg {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: -10;
+    transform: translateY(-100%);
+    opacity: 0;
+    visibility: hidden;
+
+    @include flex($jc: center);
+    @include text(2xl);
+    width: 100%;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    color: $green-base;
+    font-weight: bold;
+    background-color: $green-dark;
+    transition: all ease-in-out 300ms;
+
+    &.active {
+      opacity: 1;
+      visibility: visible;
+
+    }
+  }
 
   &__form {
     width: 100%;
@@ -85,16 +106,16 @@
   }
 
   &__btn {
-    @include flex($ai:center, $jc:center);
+    @include flex($ai: center, $jc: center);
     @extend %screen-style;
     font-size: 1.75rem;
-    border:0;
+    border: 0;
     cursor: pointer;
     background-color: transparent;
     transform-origin: center;
     transition: transform ease-in-out 100ms;
 
-    @include hover-query(){
+    @include hover-query() {
       &:hover {
         transform: scale(1.5);
         // background-color: map-get($modal-color, "btn-hover-bg");
@@ -112,6 +133,5 @@
   }
 
   &__cancel-btn {
-
   }
 }

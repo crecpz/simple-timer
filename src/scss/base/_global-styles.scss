@@ -10,7 +10,7 @@
 body {
     @include flex($ai: center, $jc: center);
     height: 100vh;
-    font-family: "Noto Sans TC", sans-serif;
+    // font-family: "Noto Sans TC", sans-serif;
     background-color: $primary-background-color;
 }
 
