@@ -26,11 +26,6 @@
   }
 }
 
-%screen-style {
-  font-family: $primary-font;
-  color: map-get($components-color, "screen-dark");
-}
-
 .setting-modal {
   visibility: hidden;
   opacity: 0;
@@ -41,56 +36,19 @@
   top: 50%;
   transform: translate(-50%, 0%);
 
-  font-family: $primary-font;
-  padding: 2rem 3rem;
   width: 100%;
   max-width: 22.1875rem;
+  // max-width: 20.3125rem;
+
+  padding: 2rem 3rem;
   margin: 0 auto;
+
+  color: map-get($components-color, "screen-dark");
   background-color: map-get($modal-color, "background");
+  font-family: $primary-font;
+
   transition-property: visibility, opacity;
   transition: 500ms ease-in-out;
-
-  &__msg {
-    @include flex($jc: center, $ai: center);
-    @include text(2xl);
-
-    position: absolute;
-    left: 0;
-    top: 0;
-    z-index: -10;
-    transform: translateY(0%);
-    
-    background-color: $gray-deep;
-    font-weight: bold;
-    color: $green-base;
-
-    width: 100%;
-    padding-top: .75rem;
-    padding-bottom: .75rem;
-
-    transition: all ease-in-out 150ms;
-    opacity: 0;
-    visibility: hidden;
-
-    &.active {
-      transform: translateY(-100%);
-      opacity: 1;
-      visibility: visible;
-    }
-
-    span,i {
-      color: #fff;   
-      @include text(base);
-    }
-
-    span{
-      font-family: "Saira Semi Condensed", sans-serif;
-    }
-
-    i{
-      margin-left: 1rem;
-    }
-  }
 
   &__form {
     width: 100%;
@@ -98,7 +56,6 @@
   }
 
   &__label {
-    @extend %screen-style;
     @include flex($dir: column, $ai: center);
     max-width: 50%;
 
@@ -108,13 +65,14 @@
   }
 
   &__input {
-    @extend %screen-style;
+    margin-top: 1rem;
     max-width: 100%;
     text-align: center;
+    font-family: $primary-font;
     font-size: $time-font-size;
     border: none;
+    color: map-get($components-color, "screen-dark");
     background-color: transparent;
-    margin-top: 16px;
   }
 
   &__btn-wrapper {
@@ -124,13 +82,13 @@
 
   &__btn {
     @include flex($ai: center, $jc: center);
-    @extend %screen-style;
-    font-size: 1.75rem;
+    color: map-get($components-color, "screen-dark");
     border: 0;
-    cursor: pointer;
+    font-size: 1.75rem;
     background-color: transparent;
     transform-origin: center;
     transition: transform ease-in-out 100ms;
+    cursor: pointer;
 
     @include hover-query() {
       &:hover {

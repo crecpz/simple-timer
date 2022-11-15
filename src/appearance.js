@@ -190,8 +190,9 @@ function setInputFilter(textbox, inputFilter) {
         this.oldSelectionStart = this.selectionStart;
         this.oldSelectionEnd = this.selectionEnd;
       } else if (this.hasOwnProperty("oldValue")) {
-        console.log(document.querySelector(".setting-modal__msg"))
-        document.querySelector(".setting-modal__msg").classList.add("active");
+        // document.querySelector(".setting-modal__msg").classList.add("active");
+        showMsg();
+        console.log(1)
         this.value = this.oldValue;
         this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
       }
@@ -210,3 +211,14 @@ setInputFilter(document.getElementById("setting-second"), function (value) {
 
 // setting-minute
 // setting-second
+
+function showMsg(){
+  const msg = document.querySelector('.msg');
+  requestAnimationFrame(() => {
+    msg.classList.remove("active");
+
+    setTimeout(() => {
+      msg.classList.add("active");
+    }, 0);
+  });
+}

@@ -22,9 +22,22 @@
 }
 
 @keyframes btn-lighting {
-  from{
+  from {
     background-color: rgb(255, 255, 255);
-  }to{
-    background-color: #fff5d6;
+  }
+  to {
+    background-color: #f2e5bf;
+  }
+}
+
+@keyframes appear {
+  0% {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  100% {
+    opacity: 0;
+    visibility: hidden;
   }
 }

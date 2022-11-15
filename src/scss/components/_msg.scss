@@ -1,0 +1,45 @@
+@use "../abstracts" as *;
+
+.msg {
+  @include flex($jc: center, $ai: center);
+  @include text(2xl);
+
+  position: fixed;
+  left: 50%;
+  top: 15vh;
+  z-index: 10;
+  transform: translateX(-50%);
+  
+  width: 100%;
+  max-width: 160px;
+
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+
+  background-color: $gray-deep;
+  font-weight: bold;
+  color: $green-base;
+
+  visibility: hidden;
+  opacity: 0;
+
+  &.active {
+    animation: appear 2000ms ease-in-out;
+  }
+
+  span,
+  i {
+    color: #fff;
+    @include text(base);
+  }
+
+  span {
+    font-family: "Saira Semi Condensed", sans-serif;
+  }
+
+  i {
+    margin-left: 1rem;
+  }
+}
