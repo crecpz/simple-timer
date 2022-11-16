@@ -13,43 +13,26 @@
   }
 
   &__light {
-    width: .75rem;
-    height: .75rem;
+    width: 0.75rem;
+    height: 0.75rem;
     border: 1px solid black;
     border-top-width: 1.5px;
     margin-left: 0.75rem;
     background-color: map-get($map: $components-color, $key: light-stop);
     box-shadow: 0 -1px 0 0 black;
 
+    &--pause {
+      background-color: map-get($components-color, "light-pause");
+      box-shadow: 0 0px 15px 5px map-get($components-color, "light-pause");
+      border: 3px solid red;
+    }
 
-    
-    &--running {
-      // animation: flickering 1000ms infinite linear;
+    &-animation--running {
       animation: flickering 1000ms infinite ease-in-out;
     }
 
     &-animation--times-up {
-      animation: flickering 300ms infinite linear;
+      animation: timesup 1000ms infinite linear;
     }
-
-    &--pause {
-      background-color: map-get($components-color, "light-pause");
-      box-shadow: 0 0px 15px 5px map-get($components-color, "light-pause");
-      border: 1px solid red;
-    }
-
-
-    // 測試用
-    // animation: flickering 1000ms infinite linear;
   }
 }
-
-// .led-light--orange {
-//   background-color: map-get($components-color, "light-pause");
-//   box-shadow: 0 0px 15px 5px map-get($components-color, "light-pause");
-//   border: 1px solid red;
-// }
-
-// .led-light-animation {
-//   animation: flickering 1000ms infinite linear;
-// }

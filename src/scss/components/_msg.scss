@@ -31,8 +31,8 @@
 
   span,
   i {
-    color: #fff;
     @include text(base);
+    color: #fff;
   }
 
   span {
@@ -40,6 +40,6 @@
   }
 
   i {
-    margin-left: 1rem;
+    margin-right: .75rem;
   }
 }

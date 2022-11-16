@@ -21,6 +21,49 @@
   }
 }
 
+
+@keyframes timesup {
+
+  80% {
+    box-shadow: 0 -1px 0 0 black;
+    background-color: map-get($map: $components-color, $key: light-stop);
+  }
+
+  82.5% {
+    box-shadow: 0 0 30px 10px map-get($map: $components-color, $key: light-start);
+    background-color: map-get($map: $components-color, $key: light-start);
+  }
+
+  87.5% {
+    background-color: rgb(234, 234, 234);
+  }
+
+  90% {
+    box-shadow: 0 0 30px 10px map-get($map: $components-color, $key: light-start);
+    background-color: map-get($map: $components-color, $key: light-start);
+  }
+
+
+  90% {
+    box-shadow: 0 -1px 0 0 black;
+    background-color: map-get($map: $components-color, $key: light-stop);
+  }
+
+  92.5% {
+    box-shadow: 0 0 30px 10px map-get($map: $components-color, $key: light-start);
+    background-color: map-get($map: $components-color, $key: light-start);
+  }
+
+  97.5% {
+    background-color: rgb(234, 234, 234);
+  }
+
+  100% {
+    box-shadow: 0 0 30px 10px map-get($map: $components-color, $key: light-start);
+    background-color: map-get($map: $components-color, $key: light-start);
+  }
+}
+
 @keyframes btn-lighting {
   from {
     background-color: rgb(255, 255, 255);

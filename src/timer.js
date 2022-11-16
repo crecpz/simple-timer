@@ -1,11 +1,12 @@
-import { btnStop, btnPause } from "./appearance";
+import { timesUpUI } from "./ui";
 import beepAudio from "./audio/beep.wav";
 
+// 時間到鈴聲
 const beep = new Audio(beepAudio);
-const timeWrapper = document.querySelector("#time-wrapper");
-// export const storageTotalSecond =
-//   JSON.parse(localStorage.getItem("totalSecond")) || 1500;
-export let totalSecond = JSON.parse(localStorage.getItem("totalSecond")) || 1500;
+beep.volume = 0.1;
+
+export let totalSecond =
+  JSON.parse(localStorage.getItem("totalSecond")) || 1500;
 export let timer;
 export let timesUpInterval;
 export let timeIsUp = false;
@@ -17,6 +18,7 @@ showScreenTime();
  * * 將 totalSecond 的秒數轉換成分與秒，顯示到畫面中
  */
 export function showScreenTime() {
+  const timeWrapper = document.querySelector("#time-wrapper");
   let minute = Math.floor(totalSecond / 60);
   let second = totalSecond % 60;
   minute < 0 ? (minute = 0) : minute;
@@ -49,6 +51,7 @@ export function timerStart() {
       clearInterval(timer);
       // 調用時間到的函數
       timesUp();
+      timesUpUI();
     }
   };
   timer = setInterval(countdown, 1000);
@@ -79,7 +82,4 @@ export function timerPause() {
 export function timesUp() {
   timeIsUp = true;
   timesUpInterval = setInterval(() => beep.play(), 1000);
-  btnStop.classList.add("btn--animation");
-  // 時間到之後，就不再准許使用者按下暫停
-  btnPause.setAttribute("disabled", "");
 }
