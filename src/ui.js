@@ -12,10 +12,9 @@ import {
 } from "./timer";
 
 // * buttons
-const btns = document.querySelectorAll(".btn");
-export const btnStop = document.querySelector("#btn-stop");
+const btnStop = document.querySelector("#btn-stop");
 const btnStart = document.querySelector("#btn-start");
-export const btnPause = document.querySelector("#btn-pause");
+const btnPause = document.querySelector("#btn-pause");
 const btnSetting = document.querySelector("#btn-setting");
 const btnCancel = document.querySelector("#btn-cancel");
 const btnOk = document.querySelector("#btn-ok");
@@ -32,21 +31,19 @@ const mousedownSound = new Audio(mousedownAudio);
 const btnSettingMousedownSound = new Audio(settingMousedownAudio);
 const btnSettingMouseupSound = new Audio(settingMouseupAudio);
 
-// settingBtnMousedownSound.volume = 1
-
 // * 為 4 個按鈕新增 mousedown, mouseup 事件
-btns.forEach((btn) => {
+document.querySelectorAll(".btn").forEach((btn) => {
   btn.addEventListener("mousedown", handleBtnMousedown);
   btn.addEventListener("mouseup", handleBtnMouseup);
 });
 
 /**
- * * 處理 4 個 btn mousedown 事件
+ * * 4 個主按鈕 mousedown 事件
  * @param {*} e
  */
 function handleBtnMousedown(e) {
   // 只要點到的不是 btn-setting
-  if (e.target.id !== "btn-setting") {
+  if (e.target !== btnSetting) {
     // 將按鈕 disabled
     e.target.setAttribute("disabled", "");
     // 播放按鈕聲音(先將聲音秒數歸零)
@@ -55,7 +52,7 @@ function handleBtnMousedown(e) {
   }
 
   // 停止
-  if (e.target.id === "btn-stop") {
+  if (e.target === btnStop) {
     // 時間停止
     timerStop();
     // 設成「按下停止鈕」的 UI 狀態
@@ -65,35 +62,35 @@ function handleBtnMousedown(e) {
   }
 
   // 開始
-  if (e.target.id === "btn-start") {
+  if (e.target === btnStart) {
     timerStart();
     timerStartUI();
   }
 
   // 暫停
-  if (e.target.id === "btn-pause") {
+  if (e.target === btnPause) {
     timerPause();
     timerPauseUI(e);
   }
 
   // 設定時間
-  if (e.target.id === "btn-setting") {
+  if (e.target === btnSetting) {
     timerSettingUI();
   }
 }
 
 /**
- * * 處理 4 個 btn mouseup 事件
+ * * 4 個主按鈕 mouseup 事件
  * @param {*} e
  */
 function handleBtnMouseup(e) {
   // 停止
-  if (e.target.id === "btn-stop") {
+  if (e.target === btnStop) {
     timerStop();
   }
 
   // 設定時間
-  if (e.target.id === "btn-setting") {
+  if (e.target === btnSetting) {
     // 暫停計時
     timerPause();
     // 播放按鈕聲
@@ -147,7 +144,7 @@ function timerPauseUI(e) {
   // 移除 running 動畫
   led.classList.remove("led__light-animation--running");
   if (e.target === btnPause) {
-    console.log(e.target)
+    console.log(e.target);
     // 亮起 pause 燈
     led.classList.add("led__light--pause");
   }
@@ -173,7 +170,7 @@ btnSetting.addEventListener("mouseleave", () =>
   btn.addEventListener("click", (e) => {
     hideModalOverlay();
 
-    if (e.target.id === "btn-ok") {
+    if (e.target === btnOk) {
       settingTime();
       showScreenTime();
       localStorage.setItem("totalSecond", JSON.stringify(totalSecond));
@@ -183,7 +180,9 @@ btnSetting.addEventListener("mouseleave", () =>
 
 // * 使用者點 input 內的數字時，反白整個數字
 [inputMinute, inputSecond].forEach((i) =>
-  i.addEventListener("focus", (e) => e.target.select())
+  i.addEventListener("click", function (e) {
+    this.setSelectionRange(0, this.value.length);
+  })
 );
 
 /**

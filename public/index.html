@@ -89,12 +89,12 @@
             <form class="setting-modal__form">
                 <label for="setting-minute" class="setting-modal__label"><span>Minute</span>
                     <input type="text" id="setting-minute" class="setting-modal__input" min="0" max="99" maxlength="2"
-                        placeholder="MM">
+                        placeholder="MM" pattern="[0-9]*" inputmode="numeric">
                 </label>
 
                 <label for="setting-second" class="setting-modal__label"><span>Second</span>
                     <input type="text" id="setting-second" class="setting-modal__input" min="0" max="59" maxlength="2"
-                        placeholder="SS">
+                        placeholder="SS" pattern="[0-9]*" inputmode="numeric">
                 </label>
             </form>
             <!-- setting-modal > btn wrapper -->
