@@ -5,7 +5,7 @@ import {
   settingTime,
   timerStart,
   showScreenTime,
-  totalSecond,
+  remainingTime,
   timerStop,
   timerPause,
   timesUp,
@@ -173,7 +173,7 @@ btnSetting.addEventListener("mouseleave", () =>
     if (e.target === btnOk) {
       settingTime();
       showScreenTime();
-      localStorage.setItem("totalSecond", JSON.stringify(totalSecond));
+      localStorage.setItem("totalSecond", JSON.stringify(remainingTime));
     }
   })
 );
@@ -191,8 +191,8 @@ btnSetting.addEventListener("mouseleave", () =>
 function timerSetting() {
   // 顯示 modalOverlay
   showModalOverlay();
-  let minute = Math.floor(totalSecond / 60);
-  let second = totalSecond % 60;
+  let minute = Math.floor(remainingTime / 60);
+  let second = remainingTime % 60;
   minute < 0 ? (minute = 0) : minute;
   second < 0 ? (second = 0) : second;
   minute = minute < 10 ? "0" + minute : minute;
