@@ -4,8 +4,8 @@ import settingMouseupAudio from "./audio/setting-mouseup.wav";
 import {
   settingTime,
   timerStart,
-  showScreenTime,
-  totalSecond,
+  showTime,
+  userSettingTime,
   timerStop,
   timerPause,
   timesUp,
@@ -58,7 +58,7 @@ function handleBtnMousedown(e) {
     // 設成「按下停止鈕」的 UI 狀態
     timerStopUI();
     // 顯示先前設定好的時間到螢幕上
-    showScreenTime();
+    showTime();
   }
 
   // 開始
@@ -144,7 +144,6 @@ function timerPauseUI(e) {
   // 移除 running 動畫
   led.classList.remove("led__light-animation--running");
   if (e.target === btnPause) {
-    console.log(e.target);
     // 亮起 pause 燈
     led.classList.add("led__light--pause");
   }
@@ -172,8 +171,8 @@ btnSetting.addEventListener("mouseleave", () =>
 
     if (e.target === btnOk) {
       settingTime();
-      showScreenTime();
-      localStorage.setItem("totalSecond", JSON.stringify(totalSecond));
+      showTime();
+      localStorage.setItem("userSettingTime", JSON.stringify(userSettingTime));
     }
   })
 );
@@ -191,8 +190,8 @@ btnSetting.addEventListener("mouseleave", () =>
 function timerSetting() {
   // 顯示 modalOverlay
   showModalOverlay();
-  let minute = Math.floor(totalSecond / 60);
-  let second = totalSecond % 60;
+  let minute = Math.floor(userSettingTime / 60);
+  let second = userSettingTime % 60;
   minute < 0 ? (minute = 0) : minute;
   second < 0 ? (second = 0) : second;
   minute = minute < 10 ? "0" + minute : minute;
