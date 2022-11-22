@@ -4,7 +4,7 @@ import settingMouseupAudio from "./audio/setting-mouseup.wav";
 import {
   settingTime,
   timerStart,
-  showTime,
+  showScreenTime,
   userSettingTime,
   timerStop,
   timerPause,
@@ -58,7 +58,7 @@ function handleBtnMousedown(e) {
     // 設成「按下停止鈕」的 UI 狀態
     timerStopUI();
     // 顯示先前設定好的時間到螢幕上
-    showTime();
+    showScreenTime();
   }
 
   // 開始
@@ -171,7 +171,7 @@ btnSetting.addEventListener("mouseleave", () =>
 
     if (e.target === btnOk) {
       settingTime();
-      showTime();
+      showScreenTime();
       localStorage.setItem("userSettingTime", JSON.stringify(userSettingTime));
     }
   })

@@ -15,13 +15,13 @@ export let timeIsUp = false;
 // ! 預設不應該是 true，只是為了測試才用 true，
 // export let timeIsPause = true;
 
-// 畫面載入時，先調用 showTime() 來顯示目前設定的時間
-showTime();
+// 畫面載入時，先調用 showScreenTime() 來顯示目前設定的時間
+showScreenTime();
 
 /**
  * * 將 userSettingTime 的秒數轉換成分與秒，顯示到畫面中
  */
-export function showTime(time) {
+export function showScreenTime(time) {
   const timeWrapper = document.querySelector("#time-wrapper");
   let minute = Math.floor(time / 60);
   let second = time % 60;
@@ -73,7 +73,7 @@ export function settingTime() {
  * * 計時開始
  */
 export function timerStart() {
-  // 記錄按下 start 當下的時間戳
+  // 按下 start 當下的時間戳
   let startTime = Date.now();
 
   const countdown = () => {
@@ -86,7 +86,7 @@ export function timerStart() {
     displayTime = userSettingTime - timeGap;
 
     // @ 僅負責顯示時間
-    showTime(displayTime);
+    showScreenTime(displayTime);
 
     // 如果 userSettingTime <= 0 代表時間到
     if (userSettingTime <= 0) {
@@ -127,7 +127,7 @@ export function timerStop() {
   clearInterval(timer);
   userSettingTime = JSON.parse(localStorage.getItem("userSettingTime")) || 1500;
   console.log(userSettingTime);
-  showTime(userSettingTime);
+  showScreenTime(userSettingTime);
   if (timeIsUp) {
     clearInterval(timesUpSoundInterval);
     timeIsUp = false;
