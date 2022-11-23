@@ -18,9 +18,8 @@ module.exports = {
         test: /\.s[ac]ss$/i,
         use: [
           MiniCssExtractPlugin.loader,
-          // 将 CSS 转化成 CommonJS 模块
           "css-loader",
-          // 将 Sass 编译成 CSS
+          "postcss-loader",
           "sass-loader",
         ],
       },
@@ -72,8 +71,8 @@ module.exports = {
   ],
 
   // @ 模式
-  // mode: "production",
-  mode: "development",
+  mode: "production",
+  // mode: "development",
   performance: {
     hints: false,
     maxEntrypointSize: 512000,

@@ -5,11 +5,9 @@ import {
   settingTime,
   timerStart,
   showScreenTime,
-  userSettingTime,
   timerStop,
   timerPause,
   timesUp,
-  remainingTime,
   displayTime,
 } from "./timer";
 
@@ -60,7 +58,7 @@ function handleBtnMousedown(e) {
     // 設成「按下停止鈕」的 UI 狀態
     timerStopUI();
     // 顯示先前設定好的時間到螢幕上
-    showScreenTime(userSettingTime);
+    showScreenTime();
   }
 
   // 開始
@@ -171,11 +169,10 @@ btnSetting.addEventListener("mouseleave", () =>
 [btnCancel, btnOk].forEach((btn) =>
   btn.addEventListener("click", (e) => {
     hideModalOverlay();
-
     if (e.target === btnOk) {
       settingTime();
-      localStorage.setItem("userSettingTime", JSON.stringify(userSettingTime));
-      showScreenTime(userSettingTime);
+      localStorage.setItem("userSettingTime", JSON.stringify(displayTime));
+      showScreenTime();
     }
   })
 );
@@ -202,7 +199,6 @@ function timerSetting() {
   inputSecond.value = second;
   inputMinute.value = minute;
 }
-
 
 /**
  * * 顯示 modal-overlay
@@ -253,25 +249,28 @@ function setInputFilter(textbox, inputFilter) {
   });
 }
 
-// * 計時設定過濾 input 輸入內容(只允許輸入數字)
-// minute
-setInputFilter(document.getElementById("setting-minute"), function (value) {
-  return /^\d*\.?\d*$/.test(value);
-});
-// second
-setInputFilter(document.getElementById("setting-second"), function (value) {
+/**
+ * * 計時設定 input RegExp
+ * @param {*} value
+ * @returns value test 結果
+ */
+const regFunc = function (value) {
   return /^\d*$/.test(value);
-});
+};
+
+// * 過濾計時設定 input (只允許輸入數字)
+// minute
+setInputFilter(document.getElementById("setting-minute"), regFunc);
+// second
+setInputFilter(document.getElementById("setting-second"), regFunc);
 
 /**
  * * 顯示提示訊息
- *
  */
 function showMsg() {
   const msg = document.querySelector(".msg");
   requestAnimationFrame(() => {
     msg.classList.remove("active");
-
     setTimeout(() => {
       msg.classList.add("active");
     }, 0);
