@@ -37,6 +37,9 @@ document.querySelectorAll(".btn").forEach((btn) => {
   btn.addEventListener("mouseup", handleBtnMouseup);
 });
 
+// * 修正 safari 高度問題
+appHeight()
+
 /**
  * * 4 個主按鈕 mousedown 事件
  * @param {*} e
@@ -288,4 +291,12 @@ export function timesUpUI() {
   btnStop.classList.add("btn--animation");
   // 時間到之後，就不再准許使用者按下暫停
   btnPause.setAttribute("disabled", "");
+}
+
+/**
+ * * 修正 mobile 100vh 的問題
+ */
+export function appHeight() {
+  const doc = document.documentElement;
+  doc.style.setProperty("--app-height", `${window.innerHeight}px`);
 }

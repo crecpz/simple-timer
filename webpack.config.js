@@ -52,7 +52,7 @@ module.exports = {
     static: {
       directory: path.join(__dirname, "dist"),
     },
-    port: 9000,
+    port: 8000,
     open: {
       app: { name: "firefox" },
     },
