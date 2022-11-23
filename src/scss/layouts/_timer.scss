@@ -44,6 +44,8 @@
   }
 
   &__time-wrapper {
+    user-select: none;
+    
     &--times-up {
       font-size: map-get($font-size, times-up);
       text-align: center;

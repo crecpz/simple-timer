@@ -9,6 +9,8 @@ import {
   timerStop,
   timerPause,
   timesUp,
+  remainingTime,
+  displayTime,
 } from "./timer";
 
 // * buttons
@@ -58,7 +60,7 @@ function handleBtnMousedown(e) {
     // 設成「按下停止鈕」的 UI 狀態
     timerStopUI();
     // 顯示先前設定好的時間到螢幕上
-    showScreenTime();
+    showScreenTime(userSettingTime);
   }
 
   // 開始
@@ -70,12 +72,14 @@ function handleBtnMousedown(e) {
   // 暫停
   if (e.target === btnPause) {
     timerPause();
-    timerPauseUI(e);
+    timerPauseUI();
   }
 
-  // 設定時間
   if (e.target === btnSetting) {
-    timerSettingUI();
+    // btnSetting 新增按鈕被按下的 class
+    btnSetting.classList.add("btn--clicked");
+    // 播放 btnSetting 聲音
+    btnSettingMousedownSound.play();
   }
 }
 
@@ -88,20 +92,14 @@ function handleBtnMouseup(e) {
   if (e.target === btnStop) {
     timerStop();
   }
-
-  // 設定時間
+  // 計時設定
   if (e.target === btnSetting) {
     // 暫停計時
     timerPause();
-    // 播放按鈕聲
-    btnSettingMouseupSound.play();
-    // 彈起按鈕
-    btnSetting.classList.remove("btn--clicked");
-    // 按下設定鈕後的按鈕狀態與按下暫停鈕的狀態大致相同(只差按下設定鈕後，LED 燈不會有變化)
-    // 傳入 e，來辨別目前按鈕為何
-    timerPauseUI(e);
-    // 開始進行設定時間
+    // 計時設定
     timerSetting();
+    // 計時設定 UI
+    timerSettingUI();
   }
 }
 
@@ -138,41 +136,46 @@ function timerStartUI() {
 /**
  * * 按下「暫停鈕」的 UI 狀態
  */
-function timerPauseUI(e) {
+function timerPauseUI() {
   // 彈起開始鈕
   btnStart.removeAttribute("disabled", "");
   // 移除 running 動畫
   led.classList.remove("led__light-animation--running");
-  if (e.target === btnPause) {
-    // 亮起 pause 燈
-    led.classList.add("led__light--pause");
-  }
+  // 亮起 pause 燈
+  led.classList.add("led__light--pause");
 }
 
 /**
- * * 按下「設定鈕」的 UI 狀態
+ * * 按下「設定鈕」後的 UI 狀態
  */
 function timerSettingUI() {
-  // 新增按鈕被按下的 class
-  btnSetting.classList.add("btn--clicked");
-  // 播放 btnSetting 聲音
-  btnSettingMousedownSound.play();
+  // btnSetting 新增按鈕被彈起的 class
+  btnSetting.classList.remove("btn--clicked");
+  // 播放按鈕聲
+  btnSettingMouseupSound.play();
+  // 顯示 modalOverlay
+  showModalOverlay();
+  // 彈起 btnStart, 按下 btnPause
+  btnStart.removeAttribute("disabled", "");
+  btnPause.setAttribute("disabled", "");
+  // 移除 running 動畫
+  led.classList.remove("led__light-animation--running");
 }
 
-// * 若使用者在 btnSetting(設定時間鈕)移開滑鼠，就跳起 btnSetting 按鈕
+// * 若使用者在 btnSetting(計時設定鈕)移開滑鼠，就跳起 btnSetting 按鈕
 btnSetting.addEventListener("mouseleave", () =>
   btnSetting.classList.remove("btn--clicked")
 );
 
-// * 處理時間設定 modal 的按鈕
+// * 計時設定 modal 按鈕監聽事件
 [btnCancel, btnOk].forEach((btn) =>
   btn.addEventListener("click", (e) => {
     hideModalOverlay();
 
     if (e.target === btnOk) {
       settingTime();
-      showScreenTime();
       localStorage.setItem("userSettingTime", JSON.stringify(userSettingTime));
+      showScreenTime(userSettingTime);
     }
   })
 );
@@ -190,8 +193,8 @@ btnSetting.addEventListener("mouseleave", () =>
 function timerSetting() {
   // 顯示 modalOverlay
   showModalOverlay();
-  let minute = Math.floor(userSettingTime / 60);
-  let second = userSettingTime % 60;
+  let minute = Math.floor(displayTime / 60);
+  let second = displayTime % 60;
   minute < 0 ? (minute = 0) : minute;
   second < 0 ? (second = 0) : second;
   minute = minute < 10 ? "0" + minute : minute;
@@ -199,6 +202,7 @@ function timerSetting() {
   inputSecond.value = second;
   inputMinute.value = minute;
 }
+
 
 /**
  * * 顯示 modal-overlay
@@ -249,7 +253,7 @@ function setInputFilter(textbox, inputFilter) {
   });
 }
 
-// * 過濾設定時間的 input
+// * 計時設定過濾 input 輸入內容(只允許輸入數字)
 // minute
 setInputFilter(document.getElementById("setting-minute"), function (value) {
   return /^\d*\.?\d*$/.test(value);
@@ -261,6 +265,7 @@ setInputFilter(document.getElementById("setting-second"), function (value) {
 
 /**
  * * 顯示提示訊息
+ *
  */
 function showMsg() {
   const msg = document.querySelector(".msg");
@@ -273,6 +278,9 @@ function showMsg() {
   });
 }
 
+/**
+ * * time's up  UI 相關
+ */
 export function timesUpUI() {
   // 移除 running 動畫，改放 times-up 動畫
   led.classList.remove("led__light-animation--running");
