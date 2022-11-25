@@ -2,13 +2,13 @@ import mousedownAudio from "./audio/mousedown.wav";
 import settingMousedownAudio from "./audio/setting-mousedown.wav";
 import settingMouseupAudio from "./audio/setting-mouseup.wav";
 import {
-  settingTime,
+  updateSettingTime,
   timerStart,
   showScreenTime,
   timerStop,
   timerPause,
-  timesUp,
   displayTime,
+  timeIsUp,
 } from "./timer";
 
 // * buttons
@@ -37,8 +37,8 @@ document.querySelectorAll(".btn").forEach((btn) => {
   btn.addEventListener("mouseup", handleBtnMouseup);
 });
 
-// * 修正 safari 高度問題
-appHeight()
+// * 修正 mobile 高度問題
+appHeight();
 
 /**
  * * 4 個主按鈕 mousedown 事件
@@ -97,9 +97,11 @@ function handleBtnMouseup(e) {
   if (e.target === btnSetting) {
     // 暫停計時
     timerPause();
-    // 計時設定
-    timerSetting();
-    // 計時設定 UI
+    // 顯示 modalOverlay
+    showModalOverlay();
+    // 將 displayTime 換算成分與秒格式，並分別顯示在 input 中
+    fillSettingModalInput();
+    // 設定按下「設定鈕」後的 UI 狀態
     timerSettingUI();
   }
 }
@@ -115,10 +117,8 @@ function timerStopUI() {
   led.classList.remove("led__light-animation--running");
   led.classList.remove("led__light--pause");
   // 如果目前時間到
-  if (timesUp) {
-    btnStop.classList.remove("btn--animation");
-    led.classList.remove("led__light-animation--times-up");
-  }
+  btnStop.classList.remove("btn--animation");
+  led.classList.remove("led__light-animation--times-up");
 }
 
 /**
@@ -147,40 +147,42 @@ function timerPauseUI() {
 }
 
 /**
- * * 按下「設定鈕」後的 UI 狀態
+ * * 設定按下「設定鈕」後的 UI 狀態
  */
 function timerSettingUI() {
   // btnSetting 新增按鈕被彈起的 class
   btnSetting.classList.remove("btn--clicked");
   // 播放按鈕聲
   btnSettingMouseupSound.play();
-  // 顯示 modalOverlay
-  showModalOverlay();
-  // 彈起 btnStart, 按下 btnPause
+  // 彈起 btnStart, 按下 btnPause, btnStop
   btnStart.removeAttribute("disabled", "");
-  btnPause.setAttribute("disabled", "");
+  [btnStop, btnPause].forEach((btn) => btn.setAttribute("disabled", ""));
   // 移除 running 動畫
   led.classList.remove("led__light-animation--running");
 }
 
 // * 若使用者在 btnSetting(計時設定鈕)移開滑鼠，就跳起 btnSetting 按鈕
 btnSetting.addEventListener("mouseleave", () =>
+  // 移除按下按鈕樣式 class
   btnSetting.classList.remove("btn--clicked")
 );
 
-// * 計時設定 modal 按鈕監聽事件
+// * setting-modal 按鈕監聽事件
 [btnCancel, btnOk].forEach((btn) =>
   btn.addEventListener("click", (e) => {
+    // 隱藏 modalOverlay
     hideModalOverlay();
+    // 如果觸發對象是 btnOk
     if (e.target === btnOk) {
-      settingTime();
-      localStorage.setItem("userSettingTime", JSON.stringify(displayTime));
+      // 將使用者設定的時間更新，存至 displayTime
+      updateSettingTime();
+      // 將 displayTime 顯示到螢幕上
       showScreenTime();
     }
   })
 );
 
-// * 使用者點 input 內的數字時，反白整個數字
+// * 使用者點 input 內的數字時，反白 input 內容
 [inputMinute, inputSecond].forEach((i) =>
   i.addEventListener("click", function (e) {
     this.setSelectionRange(0, this.value.length);
@@ -188,17 +190,18 @@ btnSetting.addEventListener("mouseleave", () =>
 );
 
 /**
- * * 計時設定
+ * * 將 displayTime 換算成分與秒格式，並分別顯示在 input 中
  */
-function timerSetting() {
-  // 顯示 modalOverlay
-  showModalOverlay();
+function fillSettingModalInput() {
+  // 換算分鐘與秒數
   let minute = Math.floor(displayTime / 60);
   let second = displayTime % 60;
+  // < 0 則設為 0, < 10 則前面補 0
   minute < 0 ? (minute = 0) : minute;
   second < 0 ? (second = 0) : second;
   minute = minute < 10 ? "0" + minute : minute;
   second = second < 10 ? "0" + second : second;
+  // 將值放入 settingModal 的 input 中
   inputSecond.value = second;
   inputMinute.value = minute;
 }
@@ -272,11 +275,9 @@ setInputFilter(document.getElementById("setting-second"), regFunc);
  */
 function showMsg() {
   const msg = document.querySelector(".msg");
+  msg.classList.remove("active");
   requestAnimationFrame(() => {
-    msg.classList.remove("active");
-    setTimeout(() => {
-      msg.classList.add("active");
-    }, 0);
+    msg.classList.add("active");
   });
 }
 
