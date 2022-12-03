@@ -9,6 +9,7 @@ https://crecpz.github.io/simple-timer/
 ## 介紹
 - 使用 JavaScript 開發。
 - 使用 SCSS 管理樣式。
+- 使用 localStorage 儲存使用者設定的時間。
 - 倒數計時寫法說明：
   - 在按下開始倒數的當下，使用 `Date.now()` 獲取時間戳記（timestamp），並以此作為**初始時間戳記**。
   - 使用 `setInterval()`，每秒獲取**新時間戳記**，並利用**新時間戳記**減去**初始時間戳記**，來計算開始倒數以來所經過的時間。
